@@ -29,12 +29,11 @@ public class PMController {
     }
 
     @PostMapping("/saveProject")
-    public String saveProject(@RequestParam int projectId,
-                              @RequestParam String projectName,
+    public String saveProject(@RequestParam String projectName,
                               @RequestParam String projectManager,
                               @RequestParam int startDate,
                               @RequestParam int endDate) {
-        pmService.createProject(projectId, projectName, projectManager, startDate, endDate);
+        pmService.createProject(projectName, projectManager, startDate, endDate);
         return "redirect:/projects";
     }
 
