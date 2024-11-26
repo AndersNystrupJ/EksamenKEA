@@ -63,7 +63,7 @@ public class TController {
         tService.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
         return "redirect:/projects";
     }
-    @PostMapping("delete/{id}")
+    @PostMapping("deletetask/{id}")
     public String deleteTaskByID(@PathVariable int id) {
         tService.deleteTask(id);
         return "redirect:/projects";
