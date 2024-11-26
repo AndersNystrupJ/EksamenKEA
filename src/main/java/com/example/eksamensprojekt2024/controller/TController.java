@@ -64,7 +64,7 @@ public class TController {
         return "redirect:/projects";
     }
     @PostMapping("delete/{id}")
-    public String deleteProjectByID(@PathVariable int id) {
+    public String deleteTaskByID(@PathVariable int id) {
         tService.deleteTask(id);
         return "redirect:/projects";
     }
