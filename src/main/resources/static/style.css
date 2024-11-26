@@ -1,0 +1,402 @@
+
+/*Login og register bodies */
+
+.loginregister-body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+/* start login side*/
+.login-container {
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.login-container h2 {
+    margin-bottom: 20px;
+}
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+.login-container input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.login-container button {
+    padding: 10px;
+    color: white;
+    background-color: #2848a7;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.register-button {
+    background-color: #2848a7; /* Green color for register button */
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+.login-container p {
+    margin-top: 15px;
+}
+/* Slut login side */
+/* Start register side */
+
+.register-container {
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.register-container h2 {
+    margin-bottom: 20px;
+}
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+.register-container input, .register-container select {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+.register-container button {
+    padding: 10px;
+    color: white;
+    background-color: #2848a7; /* Grøn farve til registreringsknappen */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+.login-link {
+    color: #2848a7;
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+}
+/* Slut register side */
+/* Start radwishes samt bodien for alle sider undtagen register og login*/
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+/* Page Header */
+.rw h1 {
+    text-align: center;
+    color: #495057;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+/* Table Styling */
+.rw table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.rw thead {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.rw thead th {
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.rw tbody tr {
+    border-bottom: 1px solid #eaeaea;
+    transition: background-color 0.3s ease;
+}
+
+.rw tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.rw tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+.rw td {
+    padding: 15px;
+    color: #495057;
+}
+
+.rw td span {
+    display: block;
+}
+
+/* Button Styling */
+.rw a input[type="button"],
+.rw button[type="submit"] {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.rw a input[type="button"]:hover,
+.rw button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Edit and Delete Buttons */
+.rw input[type="button"].edit-button {
+    background-color: #17a2b8;
+}
+
+.rw input[type="button"].edit-button:hover {
+    background-color: #138496;
+}
+
+.rw button[type="submit"].delete-button {
+    background-color: #dc3545;
+}
+
+.rw button[type="submit"].delete-button:hover {
+    background-color: #c82333;
+}
+
+/* "Create Wish" Button */
+.rw a.create-wish-button input[type="button"] {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.rw a.create-wish-button input[type="button"]:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    table {
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+/*Slut readwishes mm*/
+/*Start create wish*/
+.cw h1 {
+    color: #495057;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Container */
+.cw form {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Form Labels */
+.cw form p {
+    margin-bottom: 15px;
+}
+
+.cw form label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.cw input[type="text"],
+.cw input[type="number"],
+.cw textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.3s ease;
+}
+
+.cw input[type="text"]:focus,
+.cw input[type="number"]:focus,
+.cw textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.cw textarea {
+    resize: vertical;
+}
+
+/* Checkbox Styling */
+.cw input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.2);
+}
+
+/* Button Styling */
+.cw button[type="submit"],
+.cw button[type="button"]{
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cw button[type="submit"]:hover,
+.cw button[type="button"]:hover{
+    background-color: #044183;
+}
+
+/* Link Section */
+.link-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-section a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-section a:hover {
+    text-decoration: underline;
+}
+/*slut createwish*/
+/*Start edit*/
+.edit h1 {
+    color: #495057;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Container */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Form Labels */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.edit input[type="text"],
+.edit input[type="number"],
+.edit textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #495057;
+    transition: border-color 0.3s ease;
+}
+
+.edit input[type="text"]:focus,
+.edit input[type="number"]:focus,
+.edit textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.edit textarea {
+    resize: vertical;
+}
+
+/* Checkbox Styling */
+.edit input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.2);
+}
+
+/* Button Styling */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Ensure link buttons have no underline */
+    transition: background-color 0.3s ease;
+}
+

@@ -37,7 +37,7 @@ public class PMController {
     @GetMapping("/projects")
     public String readProjects(Model model) {
         List<ProjectManagement> projectManagement = pmService.readProjects();
-        model.addAttribute("Project", projectManagement);
+        model.addAttribute("projectManagement", projectManagement);
         return "readProjects";
     }
 
