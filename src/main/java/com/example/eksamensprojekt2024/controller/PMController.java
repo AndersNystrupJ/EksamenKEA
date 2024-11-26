@@ -4,10 +4,7 @@ import com.example.eksamensprojekt2024.model.ProjectManagement;
 import com.example.eksamensprojekt2024.service.PMService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +39,29 @@ public class PMController {
         List<ProjectManagement> projectManagement = pmService.readProjects();
         model.addAttribute("Project", projectManagement);
         return "readProjects";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editProject(@PathVariable("id") int projectID, Model model) {
+        ProjectManagement projectManagement = pmService.findProjectByID(projectID);
+        model.addAttribute("project", projectManagement);
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String updateProject(@RequestParam int projectID,
+                                @RequestParam String projectName,
+                                @RequestParam String projectManager,
+                                @RequestParam int startDate,
+                                @RequestParam int endDate) {
+        pmService.updateProject(projectID, projectName, projectManager, startDate, endDate);
+        return "redirect:/projects";
+    }
+
+    @PostMapping("delete/{id}")
+    public String deleteProjectByID(@PathVariable int id) {
+        pmService.deleteProject(id);
+        return "redirect:/projects";
     }
 
 

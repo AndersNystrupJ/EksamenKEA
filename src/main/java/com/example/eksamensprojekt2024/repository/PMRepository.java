@@ -4,6 +4,8 @@ import com.example.eksamensprojekt2024.model.ProjectManagement;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PMRepository {
@@ -23,7 +25,7 @@ public class PMRepository {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                projectManagement.setProjectId(rs.getInt("projectID"));
+                projectManagement.setProjectID(rs.getInt("projectID"));
                 projectManagement.setProjectName(rs.getString("projectName"));
                 projectManagement.setProjectManager(rs.getString("projectManager"));
                 projectManagement.setStartDate(rs.getInt("startDate"));
@@ -37,7 +39,7 @@ public class PMRepository {
     }
 
     public ProjectManagement createProject(String projectName, String projectManager, int startDate, int endDate) {
-        ProjectManagement projectManagement = new ProjectManagement();
+        ProjectManagement projectManagement = new ProjectManagement(projectName, projectManager, startDate, endDate);
 
         String sqlCreateProject = "INSERT INTO projects (projectName, projectManager, startDate, endDate) VALUES(?,?,?,?)";
 
@@ -52,7 +54,7 @@ public class PMRepository {
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int projectID = generatedKeys.getInt(1);
-                projectManagement.setProjectId(projectID);
+                projectManagement.setProjectID(projectID);
             }
 
         } catch (SQLException e) {
@@ -62,5 +64,68 @@ public class PMRepository {
         return projectManagement;
 
     }
+
+    public List<ProjectManagement> readProjects() {
+        List<ProjectManagement> projectManagements = new ArrayList<>();
+        String sqlReadProjects = "SELECT * FROM projects";
+
+        try (Connection con = DriverManager.getConnection(url, user, password)) {
+            PreparedStatement statement = con.prepareStatement(sqlReadProjects);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                ProjectManagement projectManagement = new ProjectManagement();
+                projectManagement.setProjectID(rs.getInt("projectID"));
+                projectManagement.setProjectName(rs.getString("projectName"));
+                projectManagement.setProjectManager(rs.getString("projectManager"));
+                projectManagement.setStartDate(rs.getInt("startDate"));
+                projectManagement.setEndDate(rs.getInt("endDate"));
+                projectManagements.add(projectManagement);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return projectManagements;
+    }
+
+    public void updateProject(int projectID, String projectName, String projectManager, int startDate, int endDate) {
+        String sqlUpdateProjects = "UPDATE projects SET projectName = ?, projectManager = ?, startDate = ?, endDate = ? WHERE projectID = ?";
+
+        try (Connection con = DriverManager.getConnection(url, user, password)) {
+            PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
+            statement.setString(1, projectName);
+            statement.setString(2, projectManager);
+            statement.setInt(3, startDate);
+            statement.setInt(4, endDate);
+            statement.setInt(5, projectID);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public int deleteProject(int id) {
+        int updatedRows = 0;
+        String sqlDelete = "DELETE FROM projects WHERE projectID = ?";
+
+        try (Connection con = DriverManager.getConnection(url, user, password)) {
+            PreparedStatement statement = con.prepareStatement(sqlDelete);
+            statement.setInt(1, id);
+            updatedRows = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return updatedRows;
+
+    }
+
 
 }
