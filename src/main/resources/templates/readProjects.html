@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>WishCloud</title>
+</head>
+
+<body>
+<div class="rw">
+    <table>
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Project Manager </th>
+            <th> Start Date </th>
+            <th> End Date </th>
+            <th>  </th>
+            <th>  </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${projectManagement}">
+            <td><span th:text="${project.projectName}"> Name </span></td>
+            <td><span th:text="${project.projectManager}"> Project Manager </span></td>
+            <td><span th:text="${project.getStartDate()}"> Start Date </span></td>
+            <td><span th:text="${project.getEndDate()}"> End Date </span></td>
+            <td>
+                <a th:href="@{'/projects/' + ${project.getProjectID()} + '/edit'}">
+                    <input type="button" class="edit-button" value="Edit">
+                </a>
+            </td>
+            <td>
+                <form th:action="@{/delete/{id}(id=${project.getProjectID()})}" method="post">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{'/projects' + '/create'}">
+        <input type="button" value="Create new Project">
+    </a>
+</div>
+</body>
+
+</html>
