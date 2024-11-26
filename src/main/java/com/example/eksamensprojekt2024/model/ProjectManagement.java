@@ -1,7 +1,7 @@
 package com.example.eksamensprojekt2024.model;
 
 public class ProjectManagement {
-    private int projectId;
+    private int projectID;
     private String projectName;
     private String projectManager;
     private int startDate;
@@ -11,20 +11,19 @@ public class ProjectManagement {
 
     }
 
-    public ProjectManagement(int projectId, String projectName, String projectManager, int startDate, int endDate) {
-        this.projectId = projectId;
+    public ProjectManagement(String projectName, String projectManager, int startDate, int endDate) {
         this.projectName = projectName;
         this.projectManager = projectManager;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public int getProjectId() {
-        return projectId;
+    public int getProjectID() {
+        return projectID;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 
     public String getProjectName() {
