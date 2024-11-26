@@ -10,6 +10,8 @@ public class Tasks {
     private int estimatedTime;
     private int actualTime;
 
+    public Tasks(){
+    }
 
     public Tasks(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
         this.taskID = taskID;
