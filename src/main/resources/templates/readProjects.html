@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="project : ${projectManagement}">
+        <tr th:each="project : ${project}">
             <td><span th:text="${project.projectName}"> Name </span></td>
             <td><span th:text="${project.projectManager}"> Project Manager </span></td>
             <td><span th:text="${project.getStartDate()}"> Start Date </span></td>

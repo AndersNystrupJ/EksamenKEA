@@ -1,6 +1,6 @@
 package com.example.eksamensprojekt2024.repository;
 
-import com.example.eksamensprojekt2024.model.ProjectManagement;
+import com.example.eksamensprojekt2024.model.Project;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PMRepository {
+public class ProjectRepository {
 
-    public String url = System.getenv("url");
-    public String password = System.getenv("password");
-    public String user = System.getenv("user");
+    public String url = System.getenv("DEV_DB_URL");
+    public String password = System.getenv("DEV_DB_PASSWORD");
+    public String user = System.getenv("DEV_DB_USERNAME");
 
 
-    public ProjectManagement findProjectByID(int id) {
-        ProjectManagement projectManagement = new ProjectManagement();
+    public Project findProjectByID(int id) {
+        Project project = new Project();
         String sql = "SELECT * FROM projects WHERE projectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
@@ -25,48 +25,48 @@ public class PMRepository {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                projectManagement.setProjectID(rs.getInt("projectID"));
-                projectManagement.setProjectName(rs.getString("projectName"));
-                projectManagement.setProjectManager(rs.getString("projectManager"));
-                projectManagement.setStartDate(rs.getInt("startDate"));
-                projectManagement.setEndDate(rs.getInt("endDate"));
+                project.setProjectID(rs.getInt("projectID"));
+                project.setProjectName(rs.getString("projectName"));
+                project.setProjectManager(rs.getString("projectManager"));
+                project.setStartDate(rs.getInt("startDate"));
+                project.setEndDate(rs.getInt("endDate"));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return projectManagement;
+        return project;
     }
 
-    public ProjectManagement createProject(String projectName, String projectManager, int startDate, int endDate) {
-        ProjectManagement projectManagement = new ProjectManagement(projectName, projectManager, startDate, endDate);
+    public Project createProject(String projectName, String projectManager, int startDate, int endDate) {
+        Project project = new Project(projectName, projectManager, startDate, endDate);
 
         String sqlCreateProject = "INSERT INTO projects (projectName, projectManager, startDate, endDate) VALUES(?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, projectManagement.getProjectName());
-            preparedStatement.setString(2, projectManagement.getProjectManager());
-            preparedStatement.setInt(3, projectManagement.getStartDate());
-            preparedStatement.setInt(4, projectManagement.getEndDate());
+            preparedStatement.setString(1, project.getProjectName());
+            preparedStatement.setString(2, project.getProjectManager());
+            preparedStatement.setInt(3, project.getStartDate());
+            preparedStatement.setInt(4, project.getEndDate());
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int projectID = generatedKeys.getInt(1);
-                projectManagement.setProjectID(projectID);
+                project.setProjectID(projectID);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return projectManagement;
+        return project;
 
     }
 
-    public List<ProjectManagement> readProjects() {
-        List<ProjectManagement> projectManagements = new ArrayList<>();
+    public List<Project> readProjects() {
+        List<Project> projects = new ArrayList<>();
         String sqlReadProjects = "SELECT * FROM projects";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
@@ -74,13 +74,13 @@ public class PMRepository {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                ProjectManagement projectManagement = new ProjectManagement();
-                projectManagement.setProjectID(rs.getInt("projectID"));
-                projectManagement.setProjectName(rs.getString("projectName"));
-                projectManagement.setProjectManager(rs.getString("projectManager"));
-                projectManagement.setStartDate(rs.getInt("startDate"));
-                projectManagement.setEndDate(rs.getInt("endDate"));
-                projectManagements.add(projectManagement);
+                Project project = new Project();
+                project.setProjectID(rs.getInt("projectID"));
+                project.setProjectName(rs.getString("projectName"));
+                project.setProjectManager(rs.getString("projectManager"));
+                project.setStartDate(rs.getInt("startDate"));
+                project.setEndDate(rs.getInt("endDate"));
+                projects.add(project);
             }
 
 
@@ -88,7 +88,7 @@ public class PMRepository {
             e.printStackTrace();
         }
 
-        return projectManagements;
+        return projects;
     }
 
     public void updateProject(int projectID, String projectName, String projectManager, int startDate, int endDate) {

@@ -1,6 +1,6 @@
 package com.example.eksamensprojekt2024.model;
 
-public class Tasks {
+public class Task {
     private int taskID;
     private String taskName;
     private String description;
@@ -10,10 +10,10 @@ public class Tasks {
     private int estimatedTime;
     private int actualTime;
 
-    public Tasks(){
+    public Task(){
     }
 
-    public Tasks(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
+    public Task(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
         this.taskID = taskID;
         this.taskName = taskName;
         this.description = description;

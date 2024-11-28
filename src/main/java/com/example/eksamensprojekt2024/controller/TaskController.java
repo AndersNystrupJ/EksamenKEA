@@ -1,8 +1,8 @@
 package com.example.eksamensprojekt2024.controller;
 
 
-import com.example.eksamensprojekt2024.model.Tasks;
-import com.example.eksamensprojekt2024.service.TService;
+import com.example.eksamensprojekt2024.model.Task;
+import com.example.eksamensprojekt2024.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +11,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-public class TController {
+public class TaskController {
 
-    private final TService tService;
+    private final TaskService taskService;
 
-    public TController(TService tService) {
-        this.tService = tService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping("/createTask")
     public String createTask(Model model){
-        Tasks tasks = new Tasks();
-        model.addAttribute("Task", tasks);
+        Task task = new Task();
+        model.addAttribute("Task", task);
         return "createTask";
 }
     @PostMapping("/saveTask")
@@ -33,22 +33,22 @@ public class TController {
                            @RequestParam String urgency,
                            @RequestParam int estimatedTime,
                            @RequestParam int actualTime){
-        tService.createTask(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
+        taskService.createTask(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
         return "redirect:/projects";
     }
 
 
     @GetMapping("/tasks")
     public String readTasks(Model model) {
-        List<Tasks> tasks = tService.readTasks();
+        List<Task> tasks = taskService.readTasks();
         model.addAttribute("Tasks", tasks);
         return "readTasks";
     }
 
     @GetMapping("/{id}/edittask")
     public String editTask(@PathVariable("id") int taskID, Model model) {
-        Tasks tasks = tService.findTaskByID(taskID);
-        model.addAttribute("task", tasks);
+        Task task = taskService.findTaskByID(taskID);
+        model.addAttribute("task", task);
         return "edittask";
     }
     @PostMapping("/edittask")
@@ -60,12 +60,12 @@ public class TController {
                                 @RequestParam String urgency,
                                 @RequestParam int estimatedTime,
                                 @RequestParam int actualTime) {
-        tService.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
+        taskService.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
         return "redirect:/projects";
     }
     @PostMapping("deletetask/{id}")
     public String deleteTaskByID(@PathVariable int id) {
-        tService.deleteTask(id);
+        taskService.deleteTask(id);
         return "redirect:/projects";
     }
 

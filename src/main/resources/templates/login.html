@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
+    <link th:href="@{/style.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
+<div class="login-container">
+    <table>
+        <form th:action="@{/validate_login}" method="post">
+            <tr>
+            <td>Username</td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <br>
+            <tr>
+            <td>Password</td><td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+            <td><button type="submit">Login</button></td>
+            </tr>
+        </form>
+    </table>
+    <br>
+    <br>
+
+    <a th:href="@{/register}" class="register-link">Don't have an account? Register here</a>
+</div>
 
 </body>
 </html>

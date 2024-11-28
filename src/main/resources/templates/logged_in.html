@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Logged in</title>
+</head>
+<body>
+
+<h1>Logged in</h1>
+
+<table>
+    <tr>
+        <td>Employee ID:</td>
+        <td><input type="text" name="id" th:value="${user.employeeID}" readonly></td>
+        <br>
+        <td>Name</td>
+        <td><input type="text" name="name" th:value="${user.username}" readonly></td>
+    </tr>
+</table>
+
+<a href="/">Projects</a>
+
+</body>
+</html>
