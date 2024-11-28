@@ -1,17 +1,17 @@
 package com.example.eksamensprojekt2024.model;
 
-public class ProjectManagement {
+public class Project {
     private int projectID;
     private String projectName;
     private String projectManager;
     private int startDate;
     private int endDate;
 
-    public ProjectManagement() {
+    public Project() {
 
     }
 
-    public ProjectManagement(String projectName, String projectManager, int startDate, int endDate) {
+    public Project(String projectName, String projectManager, int startDate, int endDate) {
         this.projectName = projectName;
         this.projectManager = projectManager;
         this.startDate = startDate;

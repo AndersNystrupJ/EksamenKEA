@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link th:href="@{/style.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Register</title>
 
-</body>
+</head>
+<div class="loginregister-body">
+    <body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form th:action="@{/register_save}" method="post">
+            <input type="email" id="username" name="username" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <select id="role" name="role" required>
+                <option value="ROLE_ADMIN">Admin</option>
+                <option value="ROLE_PROJECT_MANAGER">Project Manager</option>
+                <option value="ROLE_EMPLOYEE">Employee</option>
+            </select>
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- Link til login-side -->
+        <a th:href="@{/login}" class="login-link">Already have an account? Sign in</a>
+    </div>
+    </body>
+</div>
 </html>

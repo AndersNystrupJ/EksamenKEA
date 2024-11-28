@@ -1,35 +1,27 @@
 package com.example.eksamensprojekt2024.model;
 
 public class User {
-    private int userID;
-    private String userName;
+    private int employeeID;
+    private String username;
     private String password;
     private String role;
-    private int employeeID;
 
 
-    public User(int userID, String userName, String password, String role, int employeeID) {
-        this.userID = userID;
-        this.userName = userName;
+    public User() {
+    }
+
+    public User(String username, String password, String role) {
+        this.username = username;
         this.password = password;
         this.role = role;
-        this.employeeID = employeeID;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

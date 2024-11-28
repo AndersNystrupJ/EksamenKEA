@@ -1,6 +1,5 @@
 
 /*Login og register bodies */
-
 .loginregister-body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -91,6 +90,13 @@
     display: block;
     margin-top: 15px;
 }
+.register-link {
+    color: #2848a7;
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+}
+
 /* Slut register side */
 /* Start radwishes samt bodien for alle sider undtagen register og login*/
 /* General Reset */

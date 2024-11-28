@@ -1,8 +1,7 @@
 package com.example.eksamensprojekt2024.repository;
 
 
-import com.example.eksamensprojekt2024.model.ProjectManagement;
-import com.example.eksamensprojekt2024.model.Tasks;
+import com.example.eksamensprojekt2024.model.Task;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -10,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class TRepository {
+public class TaskRepository {
 
-    public String url = System.getenv("url");
-    public String password = System.getenv("password");
-    public String user = System.getenv("user");
+    public String url = System.getenv("DEV_DB_URL");
+    public String password = System.getenv("DEV_DB_PASSWORD");
+    public String user = System.getenv("DEV_DB_USERNAME");
 
-    public Tasks findTaskByID(int id) {
-        Tasks tasks = new Tasks();
+    public Task findTaskByID(int id) {
+        Task task = new Task();
         String sql = "SELECT * FROM task WHERE taskID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
@@ -26,60 +25,60 @@ public class TRepository {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                tasks.setTaskID(rs.getInt("taskID"));
-                tasks.setTaskName(rs.getString("taskName"));
-                tasks.setDescription(rs.getString("description"));
-                tasks.setAssignedEmployeeID(rs.getInt("assignedEmployeeID"));
-                tasks.setStatus(rs.getString("status"));
-                tasks.setUrgency(rs.getString("urgency"));
-                tasks.setEstimatedTime(rs.getInt("estimatedTime"));
-                tasks.setActualTime(rs.getInt("actualTime"));
+                task.setTaskID(rs.getInt("taskID"));
+                task.setTaskName(rs.getString("taskName"));
+                task.setDescription(rs.getString("description"));
+                task.setAssignedEmployeeID(rs.getInt("assignedEmployeeID"));
+                task.setStatus(rs.getString("status"));
+                task.setUrgency(rs.getString("urgency"));
+                task.setEstimatedTime(rs.getInt("estimatedTime"));
+                task.setActualTime(rs.getInt("actualTime"));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return tasks;
+        return task;
     }
 
-    public Tasks createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
-        Tasks tasks = new Tasks();
+    public Task createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
+        Task task = new Task();
 
         String sqlCreateProject = "INSERT INTO task (taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, tasks.getTaskName());
-            preparedStatement.setString(2, tasks.getDescription());
-            preparedStatement.setInt(3, tasks.getAssignedEmployeeID());
-            preparedStatement.setString(4, tasks.getStatus());
-            preparedStatement.setString(5, tasks.getUrgency());
-            preparedStatement.setInt(6, tasks.getEstimatedTime());
-            preparedStatement.setInt(7, tasks.getActualTime());
+            preparedStatement.setString(1, task.getTaskName());
+            preparedStatement.setString(2, task.getDescription());
+            preparedStatement.setInt(3, task.getAssignedEmployeeID());
+            preparedStatement.setString(4, task.getStatus());
+            preparedStatement.setString(5, task.getUrgency());
+            preparedStatement.setInt(6, task.getEstimatedTime());
+            preparedStatement.setInt(7, task.getActualTime());
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int taskID = generatedKeys.getInt(1);
-                tasks.setTaskID(taskID);
+                task.setTaskID(taskID);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return tasks;
+        return task;
     }
 
-    public List<Tasks> readTasks() {
-        List<Tasks> tasks = new ArrayList<>();
+    public List<Task> readTasks() {
+        List<Task> tasks = new ArrayList<>();
         String sqlReadTasks = "SELECT * FROM task";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlReadTasks);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Tasks task = new Tasks();
+                Task task = new Task();
                 task.setTaskID(rs.getInt("taskID"));
                 task.setTaskName(rs.getString("taskName"));
                 task.setDescription(rs.getString("description"));
