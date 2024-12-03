@@ -10,22 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
+
         this.taskService = taskService;
     }
 
-    @GetMapping("/createTask")
+    @GetMapping("/create")
     public String createTask(Model model){
         Task task = new Task();
         model.addAttribute("Task", task);
         return "createTask";
 }
-    @PostMapping("/saveTask")
+    @PostMapping("/save")
     public String saveTask(@RequestParam String taskName,
                            @RequestParam String description,
                            @RequestParam int assignedEmployeeID,
@@ -38,20 +39,20 @@ public class TaskController {
     }
 
 
-    @GetMapping("/tasks")
+    @GetMapping("/list")
     public String readTasks(Model model) {
         List<Task> tasks = taskService.readTasks();
         model.addAttribute("Tasks", tasks);
         return "readTasks";
     }
 
-    @GetMapping("/{id}/edittask")
+    @GetMapping("/{id}/edit")
     public String editTask(@PathVariable("id") int taskID, Model model) {
         Task task = taskService.findTaskByID(taskID);
         model.addAttribute("task", task);
-        return "edittask";
+        return "editTask";
     }
-    @PostMapping("/edittask")
+    @PostMapping("/edit")
     public String updateTask(@RequestParam int taskID,
                                 @RequestParam String taskName,
                                 @RequestParam String description,
@@ -63,7 +64,7 @@ public class TaskController {
         taskService.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
         return "redirect:/projects";
     }
-    @PostMapping("deletetask/{id}")
+    @PostMapping("delete/{id}")
     public String deleteTaskByID(@PathVariable int id) {
         taskService.deleteTask(id);
         return "redirect:/projects";

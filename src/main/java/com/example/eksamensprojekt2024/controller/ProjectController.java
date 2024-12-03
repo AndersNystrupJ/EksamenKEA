@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("projects")
 public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
@@ -24,7 +24,7 @@ public class ProjectController {
 
     //HTTP-SESSION:
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model, HttpSession session) {
         model.addAttribute("projectService", projectService);
         model.addAttribute("userService", userService);
@@ -38,14 +38,14 @@ public class ProjectController {
     }
 
 
-    @GetMapping("/createProject")
+    @GetMapping("/create")
     public String createProject(Model model) {
         Project project = new Project();
-        model.addAttribute("Project", project);
+        model.addAttribute("project", project);
         return "createProject";
     }
 
-    @PostMapping("/saveProject")
+    @PostMapping("/save")
     public String saveProject(@RequestParam String projectName,
                               @RequestParam String projectManager,
                               @RequestParam int startDate,
@@ -54,10 +54,10 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
-    @GetMapping("/projects")
+    @GetMapping("/list")
     public String readProjects(Model model) {
-        List<Project> project = projectService.readProjects();
-        model.addAttribute("projectManagement", project);
+        List<Project> projects = projectService.readProjects();
+        model.addAttribute("projects", projects);
         return "readProjects";
     }
 

@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/subProjects")  // Prefix all URLs in this controller with '/subProjects'
 public class SubProjectController {
     private final SubProjectService subProjectService;
     private final UserService userService;
 
-    public SubProjectController(SubProjectService subProjectService, UserService userService){
+    public SubProjectController(SubProjectService subProjectService, UserService userService) {
         this.subProjectService = subProjectService;
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model, HttpSession session) {
         model.addAttribute("subProjectService", subProjectService);
         model.addAttribute("userService", userService);
@@ -32,53 +32,55 @@ public class SubProjectController {
         } else {
             model.addAttribute("userAvailable", false);
         }
-        return "redirect:/subProjects";
+        return "redirect:/subProjects";  // or to another view like "readSubProjects"
     }
-    @GetMapping("/createSubProject")
-    public String createSubProject(Model model){
+
+    @GetMapping("/create")  // Updated URL mapping for the create page
+    public String createSubProject(Model model) {
         SubProject subProject = new SubProject();
         model.addAttribute("SubProject", subProject);
         return "createSubProject";
     }
 
-    @PostMapping("/saveSubProject")
+    @PostMapping("/save")  // Updated URL mapping for saving the subproject
     public String saveSubProject(@RequestParam String subProjectName,
                                  @RequestParam String subProjectManager,
                                  @RequestParam int startDate,
-                                 @RequestParam int enddate){
+                                 @RequestParam int enddate) {
         subProjectService.createSubProject(subProjectName, subProjectManager, startDate, enddate);
         return "redirect:/subProjects";
     }
 
-    @GetMapping("/subProjects")
-    public String readSubProjects(Model model){
+    @GetMapping("/list")  // Updated URL mapping for the list of subprojects
+    public String readSubProjects(Model model) {
         List<SubProject> subProjects = subProjectService.readSubProjects();
         model.addAttribute("subProjectManagement", subProjects);
         return "readSubProjects";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/{id}/edit")  // Edit subproject by ID
     public String editSubProject(@PathVariable("id") int subProjectID, Model model) {
         SubProject subProject = subProjectService.findSubProjectByID(subProjectID);
         model.addAttribute("project", subProject);
         return "edit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit")  // Edit and update subproject
     public String updateSubProject(@RequestParam int subProjectID,
-                                @RequestParam String subProjectName,
-                                @RequestParam String subProjectManager,
-                                @RequestParam int startDate,
-                                @RequestParam int endDate) {
+                                   @RequestParam String subProjectName,
+                                   @RequestParam String subProjectManager,
+                                   @RequestParam int startDate,
+                                   @RequestParam int endDate) {
         subProjectService.updateSubProjects(subProjectID, subProjectName, subProjectManager, startDate, endDate);
         return "redirect:/subProjects";
     }
 
-    @PostMapping("delete/{id}")
+    @PostMapping("delete/{id}")  // Delete subproject by ID
     public String deleteSubProjectByID(@PathVariable int id) {
         subProjectService.deleteSubProject(id);
         return "redirect:/subProjects";
     }
+}
     /* Ved ikke om det også skal med her.
     //REGISTER PAGE:
 
@@ -99,4 +101,3 @@ public class SubProjectController {
         return "redirect:/login";
     }*/
 
-}
