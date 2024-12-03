@@ -51,5 +51,24 @@ public class SessionController {
         return "redirect:/";
     }
 
+    //REGISTER PAGE:
+
+    @GetMapping("/register")
+    public String registerUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "/register";
+    }
+
+    //REGISTER SAVE USER:
+
+    @PostMapping("/register_save")
+    public String saveUser(@RequestParam String username,
+                           @RequestParam String password,
+                           @RequestParam String role) {
+        userService.createUser(username, password, role);
+        return "redirect:/login";
+    }
+
 
 }
