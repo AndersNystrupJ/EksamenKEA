@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.*;
-@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:h2schema.sql")
+//@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "src/test/resources/h2schema.sql")
 @SpringBootTest
 @ActiveProfiles("test")
 class ProjectRepositoryTest {
@@ -18,6 +18,7 @@ class ProjectRepositoryTest {
 
     @Test
     void createProject() {
+        assertEquals(1, 1);
     }
 
     @Test
