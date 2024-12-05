@@ -1,8 +1,6 @@
-CREATE DATABASE IF NOT EXISTS ProjectManagementDB;
-USE ProjectManagementDB;
+CREATE SCHEMA IF NOT EXISTS ProjectManagementDB;
 
-
-CREATE TABLE User (
+CREATE TABLE Bruger (
                       EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
                       Username VARCHAR(255) NOT NULL UNIQUE,
                       Password VARCHAR(255) NOT NULL,
@@ -17,15 +15,15 @@ CREATE TABLE Projects (
                           StartDate DATE,
                           EndDate DATE,
                           EmployeeID INT,
-                          FOREIGN KEY (EmployeeID) REFERENCES User(EmployeeID)
+                          FOREIGN KEY (EmployeeID) REFERENCES Bruger(EmployeeID)
 );
 
 CREATE TABLE SubProject(
                            SubProjectID INT PRIMARY KEY AUTO_INCREMENT,
                            SubProjectName VARCHAR(255) NOT NULL,
                            SubProjectManager VARCHAR(255) NOT NULL,
-                           StartDate INT,
-                           EndDate INT,
+                           StartDate DATE,
+                           EndDate DATE,
                            ProjectID INT,
                            FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID)
 );
