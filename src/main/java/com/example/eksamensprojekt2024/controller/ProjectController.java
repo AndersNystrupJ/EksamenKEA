@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -47,14 +48,15 @@ public class ProjectController {
 
     @PostMapping("/save")
     public String saveProject(@RequestParam String projectName,
-                              @RequestParam String projectManager,
-                              @RequestParam int startDate,
-                              @RequestParam int endDate) {
-        projectService.createProject(projectName, projectManager, startDate, endDate);
-        return "redirect:/projects";
+                              @RequestParam Date startDate,
+                              @RequestParam Date endDate,
+                              @RequestParam int employeeID,
+                              @RequestParam int projectManagerID) {
+        projectService.createProject(projectName, startDate, endDate, employeeID, projectManagerID);
+        return "redirect:/projects/readProjects";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/readProjects")
     public String readProjects(Model model) {
         List<Project> projects = projectService.readProjects();
         model.addAttribute("projects", projects);
@@ -71,17 +73,16 @@ public class ProjectController {
     @PostMapping("/edit")
     public String updateProject(@RequestParam int projectID,
                                 @RequestParam String projectName,
-                                @RequestParam String projectManager,
-                                @RequestParam int startDate,
-                                @RequestParam int endDate) {
-        projectService.updateProject(projectID, projectName, projectManager, startDate, endDate);
+                                @RequestParam Date startDate,
+                                @RequestParam Date endDate) {
+        projectService.updateProject(projectID, projectName, startDate, endDate);
         return "redirect:/projects";
     }
 
     @PostMapping("delete/{id}")
     public String deleteProjectByID(@PathVariable int id) {
         projectService.deleteProject(id);
-        return "redirect:/projects";
+        return "redirect:/projects/readProjects";
     }
 
 

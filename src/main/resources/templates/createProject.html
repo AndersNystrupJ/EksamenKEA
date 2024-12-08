@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <title>Create Project</title>
 </head>
 <body>
+<h1>Create a Project</h1>
+
+<form th:action="@{/projects/save}" th:object="${project}" method="post">
+    <p><label for="projectName">Name:</label>
+        <input type="text" id="projectName" th:field="*{projectName}" required/></p>
+    <br>
+    <p><label for="startDate">Startdate:</label>
+        <input type="date" id="startDate" th:field="*{startDate}" required></p>
+    <br>
+    <p><label for="endDate">Enddate:</label>
+        <input type="date" id="endDate" th:field="*{endDate}" required></p>
+    <br>
+    <p><label for="employeeID">Employee ID:</label>
+        <input type="number" id="employeeID" th:field="*{employeeID}" required/></p>
+    <br>
+    <p><label for="projectManagerID">Manager ID:</label>
+        <input type="number" id="projectManagerID" th:field="*{projectManagerID}" required/></p>
+    <br>
+
+    <button type="submit">Save</button>
+
+    <a href="/projects/readProjects">
+        <button type="button" class="button">Back to projects</button>
+    </a>
+</form>
 
 </body>
 </html>

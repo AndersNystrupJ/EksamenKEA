@@ -1,6 +1,9 @@
 package com.example.eksamensprojekt2024.repository;
 
 import com.example.eksamensprojekt2024.model.Project;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -10,9 +13,20 @@ import java.util.List;
 @Repository
 public class ProjectRepository {
 
-    public String url = System.getenv("DEV_DB_URL");
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    /*public String url = System.getenv("DEV_DB_URL");
     public String password = System.getenv("DEV_DB_PASSWORD");
-    public String user = System.getenv("DEV_DB_USERNAME");
+    public String user = System.getenv("DEV_DB_USERNAME");*/
+    @Value("${spring.datasource.url}")
+    private String url;
+
+    @Value("${spring.datasource.username}")
+    private String user;
+
+    @Value("${spring.datasource.password}")
+    private String password;
 
 
     public Project findProjectByID(int id) {
@@ -28,8 +42,8 @@ public class ProjectRepository {
                 project.setProjectID(rs.getInt("projectID"));
                 project.setProjectName(rs.getString("projectName"));
                 project.setProjectManager(rs.getString("projectManager"));
-                project.setStartDate(rs.getInt("startDate"));
-                project.setEndDate(rs.getInt("endDate"));
+                project.setStartDate(rs.getDate("startDate"));
+                project.setEndDate(rs.getDate("endDate"));
             }
 
         } catch (SQLException e) {
@@ -38,17 +52,19 @@ public class ProjectRepository {
         return project;
     }
 
-    public Project createProject(String projectName, String projectManager, int startDate, int endDate) {
-        Project project = new Project(projectName, projectManager, startDate, endDate);
+    public Project createProject(String projectName,  Date startDate, Date endDate, int employeeID, int projectManagerID) {
+        Project project = new Project(projectName, startDate, endDate);
 
-        String sqlCreateProject = "INSERT INTO projects (projectName, projectManager, startDate, endDate) VALUES(?,?,?,?)";
+        String sqlCreateProject = "INSERT INTO projects (projectName, startDate, endDate, employeeID, projectManagerID) VALUES(?,?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getProjectName());
-            preparedStatement.setString(2, project.getProjectManager());
-            preparedStatement.setInt(3, project.getStartDate());
-            preparedStatement.setInt(4, project.getEndDate());
+           // preparedStatement.setString(2, project.getProjectManager());
+            preparedStatement.setDate(2, project.getStartDate());
+            preparedStatement.setDate(3, project.getEndDate());
+            preparedStatement.setInt(4, employeeID);
+            preparedStatement.setInt(5, projectManagerID);
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -77,9 +93,10 @@ public class ProjectRepository {
                 Project project = new Project();
                 project.setProjectID(rs.getInt("projectID"));
                 project.setProjectName(rs.getString("projectName"));
-                project.setProjectManager(rs.getString("projectManager"));
-                project.setStartDate(rs.getInt("startDate"));
-                project.setEndDate(rs.getInt("endDate"));
+                project.setStartDate(rs.getDate("startDate"));
+                project.setEndDate(rs.getDate("endDate"));
+                project.setEmployeeID(rs.getInt("employeeID"));
+                project.setProjectManagerID(rs.getInt("projectManagerID"));
                 projects.add(project);
             }
 
@@ -91,16 +108,16 @@ public class ProjectRepository {
         return projects;
     }
 
-    public void updateProject(int projectID, String projectName, String projectManager, int startDate, int endDate) {
-        String sqlUpdateProjects = "UPDATE projects SET projectName = ?, projectManager = ?, startDate = ?, endDate = ? WHERE projectID = ?";
+    public void updateProject(int projectID, String projectName, Date startDate, Date endDate) {
+        String sqlUpdateProjects = "UPDATE projects SET projectName = ?, startDate = ?, endDate = ? WHERE projectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
             statement.setString(1, projectName);
-            statement.setString(2, projectManager);
-            statement.setInt(3, startDate);
-            statement.setInt(4, endDate);
-            statement.setInt(5, projectID);
+          //  statement.setString(2, projectManager);
+            statement.setDate(2, startDate);
+            statement.setDate(3, endDate);
+            statement.setInt(4, projectID);
 
             statement.executeUpdate();
 
