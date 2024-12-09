@@ -4,6 +4,7 @@ import com.example.eksamensprojekt2024.model.Project;
 import com.example.eksamensprojekt2024.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 @Service
 public class ProjectService {
@@ -19,16 +20,16 @@ public class ProjectService {
         return projectRepository.findProjectByID(id);
     }
 
-    public void createProject(String projectName, String projectManager, int startDate, int endDate) {
-        projectRepository.createProject(projectName, projectManager, startDate, endDate);
+    public void createProject(String projectName, Date startDate, Date endDate, int employeeID, int projectManagerID) {
+        projectRepository.createProject(projectName, startDate, endDate, employeeID, projectManagerID );
     }
 
     public List<Project> readProjects() {
         return projectRepository.readProjects();
     }
 
-    public void updateProject(int projectID, String projectName, String projectManager, int startDate, int endDate) {
-        projectRepository.updateProject(projectID, projectName, projectManager, startDate, endDate);
+    public void updateProject(int projectID, String projectName, Date startDate, Date endDate) {
+        projectRepository.updateProject(projectID, projectName, startDate, endDate);
     }
 
     public void deleteProject(int id) {
