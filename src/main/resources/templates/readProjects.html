@@ -9,18 +9,21 @@
     <table>
         <thead>
         <tr>
-            <th> Name </th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Project Manager</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="project : ${projects}">
-            <td><span th:text="${project.projectName}"> Name </span></td>
-            <td><span th:text="${project.projectManager}"> Project Manager </span></td>
-            <td><span th:date="${project.getStartDate()}"> Start Date </span></td>
-            <td><span th:date="${project.getEndDate()}"> End Date </span></td>
+            <td><span th:text="*{project.projectName}"> Name </span></td>
+            <td><span th:text="*{project.getStartDate()}"> Start Date </span></td>
+            <td><span th:text="*{project.getEndDate()}"> End Date </span></td>
+            <td><span th:text="*{project.projectManagerID}"> Project Manager </span></td>
             <td>
-                <a th:href="@{'/projects/' + ${project.getProjectID()} + '/edit'}">
+                <a th:href="@{'/projects/' + *{project.getProjectID()} + '/edit'}">
                     <input type="button" class="edit-button" value="Edit">
                 </a>
             </td>

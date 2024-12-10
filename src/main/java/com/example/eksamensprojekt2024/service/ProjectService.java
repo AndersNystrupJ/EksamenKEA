@@ -20,8 +20,8 @@ public class ProjectService {
         return projectRepository.findProjectByID(id);
     }
 
-    public void createProject(String projectName, Date startDate, Date endDate, int employeeID, int projectManagerID) {
-        projectRepository.createProject(projectName, startDate, endDate, employeeID, projectManagerID );
+    public void createProject(String projectName, Date startDate, Date endDate, int projectManagerID) {
+        projectRepository.createProject(projectName, startDate, endDate, projectManagerID);
     }
 
     public List<Project> readProjects() {
