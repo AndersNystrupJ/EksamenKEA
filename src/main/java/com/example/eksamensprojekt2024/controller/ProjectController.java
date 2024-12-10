@@ -40,9 +40,11 @@ public class ProjectController {
 
 
     @GetMapping("/create")
-    public String createProject(Model model) {
+    public String createProject(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
         Project project = new Project();
         model.addAttribute("project", project);
+        model.addAttribute("user", user);
         return "createProject";
     }
 
@@ -50,9 +52,8 @@ public class ProjectController {
     public String saveProject(@RequestParam String projectName,
                               @RequestParam Date startDate,
                               @RequestParam Date endDate,
-                              @RequestParam int employeeID,
                               @RequestParam int projectManagerID) {
-        projectService.createProject(projectName, startDate, endDate, employeeID, projectManagerID);
+        projectService.createProject(projectName, startDate, endDate, projectManagerID);
         return "redirect:/projects/readProjects";
     }
 

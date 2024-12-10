@@ -5,11 +5,9 @@ import java.sql.Date;
 public class Project {
     private int projectID;
     private String projectName;
-    private String projectManager;
     private java.sql.Date startDate;
     private java.sql.Date endDate;
     private int projectManagerID;
-    private int employeeID;
 
 
 
@@ -17,10 +15,11 @@ public class Project {
 
     }
 
-    public Project(String projectName,  java.sql.Date startDate, java.sql.Date endDate) {
+    public Project(String projectName,  java.sql.Date startDate, java.sql.Date endDate, int projectManagerID) {
         this.projectName = projectName;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.projectManagerID = projectManagerID;
     }
 
     public int getProjectID() {
@@ -39,13 +38,6 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public String getProjectManager() {
-        return projectManager;
-    }
-
-    public void setProjectManager(String projectManager) {
-        this.projectManager = projectManager;
-    }
 
     public Date getStartDate() {
         return startDate;
@@ -68,12 +60,5 @@ public class Project {
     }
     public void setProjectManagerID(int projectManagerID) {
         this.projectManagerID = projectManagerID;
-    }
-    public int getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
     }
 }
