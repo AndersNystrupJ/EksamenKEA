@@ -46,8 +46,8 @@ public class SubProjectController {
     public String saveSubProject(@RequestParam String subProjectName,
                                  @RequestParam String subProjectManager,
                                  @RequestParam int startDate,
-                                 @RequestParam int enddate) {
-        subProjectService.createSubProject(subProjectName, subProjectManager, startDate, enddate);
+                                 @RequestParam int endDate) {
+        subProjectService.createSubProject(subProjectName, subProjectManager, startDate, endDate);
         return "redirect:/subProjects";
     }
 
