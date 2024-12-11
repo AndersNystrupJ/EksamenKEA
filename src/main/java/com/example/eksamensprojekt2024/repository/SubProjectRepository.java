@@ -114,16 +114,11 @@ public class SubProjectRepository {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
             statement.setInt(1, id);
             updatedRows = statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return updatedRows;
-
     }
-
-
 }
 
 

@@ -54,9 +54,7 @@ public class ProjectRepository {
 
     public Project createProject(String projectName, Date startDate, Date endDate, int projectManagerID) {
         Project project = new Project(projectName, startDate, endDate, projectManagerID);
-
         String sqlCreateProject = "INSERT INTO projects (projectName, startDate, endDate, projectManagerID) VALUES(?,?,?,?)";
-
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getProjectName());
@@ -71,13 +69,10 @@ public class ProjectRepository {
                 int projectID = generatedKeys.getInt(1);
                 project.setProjectID(projectID);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return project;
-
     }
 
     public List<Project> readProjects() {
@@ -97,12 +92,9 @@ public class ProjectRepository {
                 project.setProjectManagerID(rs.getInt("projectManagerID"));
                 projects.add(project);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return projects;
     }
 

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.util.List;
@@ -40,8 +41,17 @@ public class ProjectController {
 
 
     @GetMapping("/create")
-    public String createProject(Model model, HttpSession session) {
+    public String createProject(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User)session.getAttribute("user");
+        if(user == null){
+            redirectAttributes.addFlashAttribute("error", "You are not logged in!");
+            return "redirect:/login";
+        }
+        String role = user.getRole();
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+            redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
+            return "redirect:/projects/readProjects";
+        }
         Project project = new Project();
         model.addAttribute("project", project);
         model.addAttribute("user", user);
@@ -65,7 +75,17 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editProject(@PathVariable("id") int projectID, Model model) {
+    public String editProject(@PathVariable("id") int projectID, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            redirectAttributes.addFlashAttribute("error", "You are not logged in!");
+            return "redirect:/login";
+        }
+        String role = user.getRole();
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+            redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
+            return "redirect:/projects/readProjects";
+        }
         Project project = projectService.findProjectByID(projectID);
         model.addAttribute("project", project);
         return "editProject";
@@ -81,7 +101,17 @@ public class ProjectController {
     }
 
     @PostMapping("delete/{id}")
-    public String deleteProjectByID(@PathVariable int id) {
+    public String deleteProjectByID(@PathVariable int id, RedirectAttributes redirectAttributes, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            redirectAttributes.addFlashAttribute("error", "You are not logged in!");
+            return "redirect:/login";
+        }
+        String role = user.getRole();
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+            redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
+            return "redirect:/projects/readProjects";
+        }
         projectService.deleteProject(id);
         return "redirect:/projects/readProjects";
     }
