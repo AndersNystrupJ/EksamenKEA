@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:href="@{/style.css}" rel="stylesheet">
-    <title>Create Project</title>
+    <title>Create Sub Project</title>
 </head>
 <body>
-<h1>Create a Project</h1>
+<h1>Create a SubProject</h1>
 
-<form th:action="@{/projects/save}" th:object="${project}" method="post">
+<form th:action="@{/subProjects/saveSubProject}" th:object="${subProject}" method="post">
 
-    <p><label for="projectName">Name:</label>
-        <input type="text" id="projectName" th:field="*{projectName}" required/></p>
+    <p><label for="subProjectName">SubProject Name:</label>
+        <input type="text" id="subProjectName" th:field="*{subProjectName}" required/></p>
     <br>
 
     <p><label for="startDate">Startdate:</label>
@@ -22,14 +22,14 @@
         <input type="date" id="endDate" th:field="*{endDate}" required></p>
     <br>
 
-    <!-- Manager ID -->
-    <p><label for="projectManagerID">Manager ID:</label>
-        <input type="text" id="projectManagerID" name="projectManagerID" th:value="${user.employeeID}" readonly/></p>
+
+    <p><label for="projectID">Manager ID:</label>
+        <input type="text" id="projectID" name="projectID" th:value="${project.projectID}" readonly/></p>
     <br>
 
     <button type="submit">Save</button>
 
-    <a href="/projects/readProjects">
+    <a th:href="@{/subProjects/readSubProjects}">
         <button type="button" class="button">Back to projects</button>
     </a>
 </form>
