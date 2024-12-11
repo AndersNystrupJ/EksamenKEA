@@ -3,16 +3,16 @@ package com.example.eksamensprojekt2024.model;
 public class SubProject {
     private int subProjectID;
     private String subProjectName;
-    private String subProjectManager;
+    private int projectID;
     private int startDate;
     private int endDate;
 
     public SubProject(){
 
     }
-    public SubProject(String subProjectName, String subProjectManager, int startDate, int endDate) {
+    public SubProject(String subProjectName, int projectID, int startDate, int endDate) {
         this.subProjectName = subProjectName;
-        this.subProjectManager = subProjectManager;
+        this.projectID = projectID;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -33,13 +33,6 @@ public class SubProject {
         this.subProjectName = subProjectName;
     }
 
-    public String getSubProjectManager() {
-        return subProjectManager;
-    }
-
-    public void setSubProjectManager(String subProjectManager) {
-        this.subProjectManager = subProjectManager;
-    }
 
     public int getStartDate() {
         return startDate;
@@ -55,5 +48,13 @@ public class SubProject {
 
     public void setEndDate(int endDate) {
         this.endDate = endDate;
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
     }
 }

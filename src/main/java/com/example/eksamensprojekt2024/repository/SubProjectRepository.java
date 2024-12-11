@@ -25,7 +25,7 @@ public class SubProjectRepository {
             if (rs.next()) {
                 subProject.setSubProjectID(rs.getInt("subProjectID"));
                 subProject.setSubProjectName(rs.getString("subProjectName"));
-                subProject.setSubProjectManager(rs.getString("subProjectManager"));
+                subProject.setProjectID(rs.getInt("projectID"));
                 subProject.setStartDate(rs.getInt("startDate"));
                 subProject.setEndDate(rs.getInt("endDate"));
             }
@@ -35,15 +35,15 @@ public class SubProjectRepository {
         }
         return subProject;
     }
-    public SubProject createSubProject(String subProjectName, String subProjectManager, int startDate, int endDate) {
-        SubProject subProject = new SubProject(subProjectName, subProjectManager, startDate, endDate);
+    public SubProject createSubProject(String subProjectName, int projectID, int startDate, int endDate) {
+        SubProject subProject = new SubProject(subProjectName, projectID, startDate, endDate);
 
         String sqlCreateProject = "INSERT INTO subProjects (subProjectName, subProjectManager, startDate, endDate) VALUES(?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, subProject.getSubProjectName());
-            preparedStatement.setString(2, subProject.getSubProjectManager());
+            preparedStatement.setInt(2, subProject.getProjectID());
             preparedStatement.setInt(3, subProject.getStartDate());
             preparedStatement.setInt(4, subProject.getEndDate());
             preparedStatement.executeUpdate();

@@ -18,8 +18,8 @@ public class SubProjectService {
     public SubProject findSubProjectByID(int id){
         return subProjectRepository.findSubProjectByID(id);
     }
-    public void createSubProject(String subProjectName, String subProjectManager, int startDate, int endDate){
-        subProjectRepository.createSubProject(subProjectName, subProjectManager, startDate, endDate);
+    public void createSubProject(String subProjectName, int projectID, int startDate, int endDate){
+        subProjectRepository.createSubProject(subProjectName, projectID, startDate, endDate);
     }
 
     public List<SubProject> readSubProjects(){

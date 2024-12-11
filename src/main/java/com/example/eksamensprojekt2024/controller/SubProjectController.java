@@ -1,7 +1,6 @@
 package com.example.eksamensprojekt2024.controller;
 
 import com.example.eksamensprojekt2024.model.SubProject;
-import com.example.eksamensprojekt2024.model.User;
 import com.example.eksamensprojekt2024.service.SubProjectService;
 import com.example.eksamensprojekt2024.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -44,10 +43,10 @@ public class SubProjectController {
 
     @PostMapping("/save")  // Updated URL mapping for saving the subproject
     public String saveSubProject(@RequestParam String subProjectName,
-                                 @RequestParam String subProjectManager,
+                                 @RequestParam int projectID,
                                  @RequestParam int startDate,
                                  @RequestParam int enddate) {
-        subProjectService.createSubProject(subProjectName, subProjectManager, startDate, enddate);
+        subProjectService.createSubProject(subProjectName, projectID, startDate, enddate);
         return "redirect:/subProjects";
     }
 
@@ -81,23 +80,4 @@ public class SubProjectController {
         return "redirect:/subProjects";
     }
 }
-    /* Ved ikke om det også skal med her.
-    //REGISTER PAGE:
-
-    @GetMapping("/register")
-    public String registerUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "/register";
-    }
-
-    //REGISTER SAVE USER:
-
-    @PostMapping("/register_save")
-    public String saveUser(@RequestParam String username,
-                           @RequestParam String password,
-                           @RequestParam String role) {
-        userService.createUser(username, password, role);
-        return "redirect:/login";
-    }*/
 
