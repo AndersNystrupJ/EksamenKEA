@@ -17,7 +17,7 @@ public class UserRepository {
     }
 
     public User getUser(String username, String password) {
-        String query = "SELECT * FROM user WHERE username = ? AND password = ?;";
+        String query = "SELECT * FROM userprofile WHERE username = ? AND password = ?;";
         RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         try {
             return jdbcTemplate.queryForObject(query, rowMapper, username, password);
@@ -27,7 +27,7 @@ public class UserRepository {
     }
 
     public void createUser(String username, String password, String role) {
-        String query = "INSERT INTO user(username, password, role)" + "VALUES(?, ?, ?);";
+        String query = "INSERT INTO userprofile(username, password, role)" + "VALUES(?, ?, ?);";
         jdbcTemplate.update(query, username, password, role);
     }
 }
