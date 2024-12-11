@@ -26,6 +26,10 @@ public class SubProjectService {
         return subProjectRepository.readSubProjects();
     }
 
+    public List<SubProject> readSubProjectsByProjectID(int projectID){
+        return subProjectRepository.readSubProjectsByID(projectID);
+    }
+
     public void updateSubProjects(int subProjectID, String subProjectName, String subProjectManager, int startDate, int endDate){
         subProjectRepository.updateSubProject(subProjectID, subProjectName, subProjectManager, startDate, endDate);
     }

@@ -17,7 +17,10 @@
         </thead>
         <tbody>
         <tr th:each="project : ${projects}">
-            <td><span th:text="*{project.projectName}"> Name </span></td>
+            <td>
+                <a th:href="@{'/subProjects/readSubProjects/' + ${project.getProjectID()}}">
+                    <span th:text="${project.projectName}"></span>
+                </a></td>
             <td><span th:text="*{project.getStartDate()}"> Start Date </span></td>
             <td><span th:text="*{project.getEndDate()}"> End Date </span></td>
             <td><span th:text="*{project.projectManagerID}"> Project Manager </span></td>
