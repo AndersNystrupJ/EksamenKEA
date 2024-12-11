@@ -68,7 +68,7 @@ public class ProjectController {
     public String editProject(@PathVariable("id") int projectID, Model model) {
         Project project = projectService.findProjectByID(projectID);
         model.addAttribute("project", project);
-        return "edit";
+        return "editProject";
     }
 
     @PostMapping("/edit")
