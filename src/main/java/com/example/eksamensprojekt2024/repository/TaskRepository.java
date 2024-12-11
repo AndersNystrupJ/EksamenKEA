@@ -2,6 +2,7 @@ package com.example.eksamensprojekt2024.repository;
 
 
 import com.example.eksamensprojekt2024.model.Task;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -11,9 +12,17 @@ import java.util.List;
 @Repository
 public class TaskRepository {
 
-    public String url = System.getenv("DEV_DB_URL");
+    /*public String url = System.getenv("DEV_DB_URL");
     public String password = System.getenv("DEV_DB_PASSWORD");
-    public String user = System.getenv("DEV_DB_USERNAME");
+    public String user = System.getenv("DEV_DB_USERNAME");*/
+    @Value("${spring.datasource.url}")
+    private String url;
+
+    @Value("${spring.datasource.username}")
+    private String user;
+
+    @Value("${spring.datasource.password}")
+    private String password;
 
     public Task findTaskByID(int id) {
         Task task = new Task();
@@ -41,10 +50,9 @@ public class TaskRepository {
         return task;
     }
 
-    public Task createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
-        Task task = new Task();
-
-        String sqlCreateProject = "INSERT INTO task (taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime) VALUES(?,?,?,?,?,?,?)";
+    public Task createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime, int subProjectID) {
+        Task task = new Task(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID);
+        String sqlCreateProject = "INSERT INTO task (taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID) VALUES(?,?,?,?,?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
@@ -55,6 +63,7 @@ public class TaskRepository {
             preparedStatement.setString(5, task.getUrgency());
             preparedStatement.setInt(6, task.getEstimatedTime());
             preparedStatement.setInt(7, task.getActualTime());
+            preparedStatement.setInt(8, task.getSubProjectID());
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -70,12 +79,13 @@ public class TaskRepository {
         return task;
     }
 
-    public List<Task> readTasks() {
+    public List<Task> readTasks(int subProjectID) {
         List<Task> tasks = new ArrayList<>();
-        String sqlReadTasks = "SELECT * FROM task";
+        String sqlReadTasks = "SELECT * FROM task WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlReadTasks);
+            statement.setInt(1, subProjectID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Task task = new Task();
@@ -87,6 +97,7 @@ public class TaskRepository {
                 task.setUrgency(rs.getString("urgency"));
                 task.setEstimatedTime(rs.getInt("estimatedTime"));
                 task.setActualTime(rs.getInt("actualTime"));
+                task.setSubProjectID(rs.getInt("subProjectID"));
                 tasks.add(task);
 
             }

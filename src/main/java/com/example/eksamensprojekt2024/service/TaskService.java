@@ -18,12 +18,12 @@ public class TaskService {
         return taskRepository.findTaskByID(id);
     }
 
-    public void createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
-        taskRepository.createTask(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
+    public void createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime, int subProjectID) {
+        taskRepository.createTask(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID);
     }
 
-    public List<Task> readTasks() {
-        return taskRepository.readTasks();
+    public List<Task> readTasks(int subProjectID) {
+        return taskRepository.readTasks(subProjectID);
     }
 
     public void updateTask(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {

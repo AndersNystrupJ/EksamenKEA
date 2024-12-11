@@ -96,7 +96,7 @@ public class SubProjectRepository {
     }
 
     public void updateSubProject(int subProjectID, String subProjectName, String subProjectManager, Date startDate, Date endDate) {
-        String sqlUpdateProjects = "UPDATE subProject SET subProjectName = ?, subProjectManager = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
+        String sqlUpdateProjects = "UPDATE sub_Project SET subProjectName = ?, subProjectManager = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
@@ -116,7 +116,7 @@ public class SubProjectRepository {
 
     public int deleteSubProject(int id) {
         int updatedRows = 0;
-        String sqlDelete = "DELETE FROM subProject WHERE subProjectID = ?";
+        String sqlDelete = "DELETE FROM sub_Project WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
