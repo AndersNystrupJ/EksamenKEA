@@ -3,36 +3,25 @@
 <head>
     <link th:href="@{/style.css}" rel="stylesheet">
     <title>Create Sub Project</title>
-</head>
+    <head>
+        <title>Create SubProject</title>
+    </head>
 <body>
-<h1>Create a SubProject</h1>
+<h1>Create subproject for Project ID: <span th:text="${projectID}"></span></h1>
+<form th:action="@{/subProjects/saveSubProject}" method="post">
 
-<form th:action="@{/subProjects/saveSubProject}" th:object="${subProject}" method="post">
+    <input type="hidden" name="projectID" th:value="${projectID}">
 
-    <p><label for="subProjectName">SubProject Name:</label>
-        <input type="text" id="subProjectName" th:field="*{subProjectName}" required/></p>
+    <label for="subProjectName">SubProject Name:</label>
+    <input type="text" id="subProjectName" name="subProjectName" required>
     <br>
-
-    <p><label for="startDate">Startdate:</label>
-        <input type="date" id="startDate" th:field="*{startDate}" required></p>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
     <br>
-
-    <!-- End Date -->
-    <p><label for="endDate">Enddate:</label>
-        <input type="date" id="endDate" th:field="*{endDate}" required></p>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
     <br>
-
-
-    <p><label for="projectID">Manager ID:</label>
-        <input type="text" id="projectID" name="projectID" th:value="${project.projectID}" readonly/></p>
-    <br>
-
-    <button type="submit">Save</button>
-
-    <a th:href="@{/subProjects/readSubProjects}">
-        <button type="button" class="button">Back to projects</button>
-    </a>
+    <button type="submit">Create</button>
 </form>
-
 </body>
 </html>

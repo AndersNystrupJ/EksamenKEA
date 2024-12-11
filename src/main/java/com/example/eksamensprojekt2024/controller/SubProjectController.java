@@ -1,6 +1,4 @@
 package com.example.eksamensprojekt2024.controller;
-
-import com.example.eksamensprojekt2024.model.Project;
 import com.example.eksamensprojekt2024.model.SubProject;
 import com.example.eksamensprojekt2024.service.ProjectService;
 import com.example.eksamensprojekt2024.service.SubProjectService;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -39,28 +38,32 @@ public class SubProjectController {
         return "redirect:/subProjects/readSubProjects";
     }
 
-    @GetMapping("/createSubProjects")
-    public String createSubProject(Model model) {
+    @GetMapping("/createSubProject/{projectID}")
+    public String createSubProject(@PathVariable("projectID") int projectID, Model model) {
         SubProject subProject = new SubProject();
+        subProject.setProjectID(projectID);
         model.addAttribute("subProject", subProject);
+        model.addAttribute("projectID", projectID);
         return "createSubProject";
     }
 
     @PostMapping("/saveSubProject")
     public String saveSubProject(@RequestParam String subProjectName,
                                  @RequestParam int projectID,
-                                 @RequestParam int startDate,
-                                 @RequestParam int endDate) {
+                                 @RequestParam Date startDate,
+                                 @RequestParam Date endDate) {
         subProjectService.createSubProject(subProjectName, projectID, startDate, endDate);
-        return "redirect:/subProjects";
+        return "redirect:/subProjects/readSubProjects/" + projectID;
     }
 
     @GetMapping("/readSubProjects/{projectID}")
     public String readSubProjects(@PathVariable("projectID") int projectID, Model model) {
-        List<SubProject> subProjects = subProjectService.readSubProjectsByProjectID(projectID);
+        List<SubProject> subProjects = subProjectService.readSubProjects(projectID);
         model.addAttribute("subProjects", subProjects);
-        return "readSubProject";
+        model.addAttribute("projectID", projectID);
+        return "readSubProjects";
     }
+
 
     @GetMapping("/{id}/edit")
     public String editSubProject(@PathVariable("id") int subProjectID, Model model) {
@@ -73,8 +76,8 @@ public class SubProjectController {
     public String updateSubProject(@RequestParam int subProjectID,
                                    @RequestParam String subProjectName,
                                    @RequestParam String subProjectManager,
-                                   @RequestParam int startDate,
-                                   @RequestParam int endDate) {
+                                   @RequestParam Date startDate,
+                                   @RequestParam Date endDate) {
         subProjectService.updateSubProjects(subProjectID, subProjectName, subProjectManager, startDate, endDate);
         return "redirect:/subProjects";
     }
@@ -85,23 +88,3 @@ public class SubProjectController {
         return "redirect:/subProjects";
     }
 }
-    /* Ved ikke om det også skal med her.
-    //REGISTER PAGE:
-
-    @GetMapping("/register")
-    public String registerUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "/register";
-    }
-
-    //REGISTER SAVE USER:
-
-    @PostMapping("/register_save")
-    public String saveUser(@RequestParam String username,
-                           @RequestParam String password,
-                           @RequestParam String role) {
-        userService.createUser(username, password, role);
-        return "redirect:/login";
-    }*/
-
