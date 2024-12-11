@@ -41,7 +41,7 @@ public class ProjectRepository {
             if (rs.next()) {
                 project.setProjectID(rs.getInt("projectID"));
                 project.setProjectName(rs.getString("projectName"));
-                project.setProjectManager(rs.getString("projectManager"));
+                project.setProjectManagerID(rs.getInt("projectManagerID"));
                 project.setStartDate(rs.getDate("startDate"));
                 project.setEndDate(rs.getDate("endDate"));
             }
@@ -52,10 +52,10 @@ public class ProjectRepository {
         return project;
     }
 
-    public Project createProject(String projectName,  Date startDate, Date endDate, int employeeID, int projectManagerID) {
-        Project project = new Project(projectName, startDate, endDate);
+    public Project createProject(String projectName, Date startDate, Date endDate, int projectManagerID) {
+        Project project = new Project(projectName, startDate, endDate, projectManagerID);
 
-        String sqlCreateProject = "INSERT INTO projects (projectName, startDate, endDate, employeeID, projectManagerID) VALUES(?,?,?,?,?)";
+        String sqlCreateProject = "INSERT INTO projects (projectName, startDate, endDate, projectManagerID) VALUES(?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
@@ -63,8 +63,7 @@ public class ProjectRepository {
            // preparedStatement.setString(2, project.getProjectManager());
             preparedStatement.setDate(2, project.getStartDate());
             preparedStatement.setDate(3, project.getEndDate());
-            preparedStatement.setInt(4, employeeID);
-            preparedStatement.setInt(5, projectManagerID);
+            preparedStatement.setInt(4, project.getProjectManagerID());
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -95,7 +94,6 @@ public class ProjectRepository {
                 project.setProjectName(rs.getString("projectName"));
                 project.setStartDate(rs.getDate("startDate"));
                 project.setEndDate(rs.getDate("endDate"));
-                project.setEmployeeID(rs.getInt("employeeID"));
                 project.setProjectManagerID(rs.getInt("projectManagerID"));
                 projects.add(project);
             }
