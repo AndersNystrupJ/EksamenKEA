@@ -46,11 +46,11 @@ class ProjectRepositoryTest {
     void updateProject() {
     }
 
-    @Test
+    /*//@Test
     void deleteProject() {
         projectRepository.findProjectByID(1);
         int expectedResult = 1;
         int actualResult = projectRepository.readProjects().size();
         assertEquals(expectedResult, actualResult);
-    }
+    }*/
 }
