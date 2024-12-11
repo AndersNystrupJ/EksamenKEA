@@ -48,7 +48,7 @@ public class ProjectController {
             return "redirect:/login";
         }
         String role = user.getRole();
-        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_PROJECT_MANAGER".equalsIgnoreCase(role)){
             redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
             return "redirect:/projects/readProjects";
         }

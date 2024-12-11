@@ -1,5 +1,4 @@
 package com.example.eksamensprojekt2024.repository;
-
 import com.example.eksamensprojekt2024.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +57,6 @@ public class ProjectRepository {
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getProjectName());
-           // preparedStatement.setString(2, project.getProjectManager());
             preparedStatement.setDate(2, project.getStartDate());
             preparedStatement.setDate(3, project.getEndDate());
             preparedStatement.setInt(4, project.getProjectManagerID());
@@ -104,7 +102,6 @@ public class ProjectRepository {
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
             statement.setString(1, projectName);
-          //  statement.setString(2, projectManager);
             statement.setDate(2, startDate);
             statement.setDate(3, endDate);
             statement.setInt(4, projectID);

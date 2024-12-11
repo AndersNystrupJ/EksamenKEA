@@ -4,6 +4,7 @@ import com.example.eksamensprojekt2024.model.SubProject;
 import com.example.eksamensprojekt2024.repository.SubProjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -18,19 +19,15 @@ public class SubProjectService {
     public SubProject findSubProjectByID(int id){
         return subProjectRepository.findSubProjectByID(id);
     }
-    public void createSubProject(String subProjectName, int projectID, int startDate, int endDate){
+    public void createSubProject(String subProjectName, int projectID, Date startDate, Date endDate){
         subProjectRepository.createSubProject(subProjectName, projectID, startDate, endDate);
     }
 
-    public List<SubProject> readSubProjects(){
-        return subProjectRepository.readSubProjects();
+    public List<SubProject> readSubProjects(int projectID){
+        return subProjectRepository.readSubProjects(projectID);
     }
 
-    public List<SubProject> readSubProjectsByProjectID(int projectID){
-        return subProjectRepository.readSubProjectsByID(projectID);
-    }
-
-    public void updateSubProjects(int subProjectID, String subProjectName, String subProjectManager, int startDate, int endDate){
+    public void updateSubProjects(int subProjectID, String subProjectName, String subProjectManager, Date startDate, Date endDate){
         subProjectRepository.updateSubProject(subProjectID, subProjectName, subProjectManager, startDate, endDate);
     }
 

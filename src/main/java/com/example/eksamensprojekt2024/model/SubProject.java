@@ -1,16 +1,18 @@
 package com.example.eksamensprojekt2024.model;
 
+import java.sql.Date;
+
 public class SubProject {
     private int subProjectID;
     private String subProjectName;
     private int projectID;
-    private int startDate;
-    private int endDate;
+    private Date startDate;
+    private Date endDate;
 
     public SubProject(){
 
     }
-    public SubProject(String subProjectName, int projectID, int startDate, int endDate) {
+    public SubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
         this.subProjectName = subProjectName;
         this.projectID = projectID;
         this.startDate = startDate;
@@ -34,19 +36,19 @@ public class SubProject {
     }
 
 
-    public int getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(int startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public int getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(int endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

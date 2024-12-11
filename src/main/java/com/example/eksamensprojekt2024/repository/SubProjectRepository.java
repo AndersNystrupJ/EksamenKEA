@@ -24,7 +24,7 @@ public class SubProjectRepository {
 
     public SubProject findSubProjectByID(int id) {
         SubProject subProject = new SubProject();
-        String sql = "SELECT * FROM subproject WHERE projectID = ?";
+        String sql = "SELECT * FROM sub_project WHERE projectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sql);
@@ -35,8 +35,8 @@ public class SubProjectRepository {
                 subProject.setSubProjectID(rs.getInt("subProjectID"));
                 subProject.setSubProjectName(rs.getString("subProjectName"));
                 subProject.setProjectID(rs.getInt("projectID"));
-                subProject.setStartDate(rs.getInt("startDate"));
-                subProject.setEndDate(rs.getInt("endDate"));
+                subProject.setStartDate(rs.getDate("startDate"));
+                subProject.setEndDate(rs.getDate("endDate"));
             }
 
         } catch (SQLException e) {
@@ -44,17 +44,17 @@ public class SubProjectRepository {
         }
         return subProject;
     }
-    public SubProject createSubProject(String subProjectName, int projectID, int startDate, int endDate) {
+    public SubProject createSubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
         SubProject subProject = new SubProject(subProjectName, projectID, startDate, endDate);
 
-        String sqlCreateProject = "INSERT INTO subProject (subProjectName, projectID, startDate, endDate) VALUES(?,?,?,?)";
+        String sqlCreateProject = "INSERT INTO sub_project (subProjectName, projectID, startDate, endDate) VALUES(?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateProject, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, subProject.getSubProjectName());
-            preparedStatement.setInt(2, subProject.getSubProjectID());
-            preparedStatement.setInt(3, subProject.getStartDate());
-            preparedStatement.setInt(4, subProject.getEndDate());
+            preparedStatement.setInt(2, subProject.getProjectID());
+            preparedStatement.setDate(3, subProject.getStartDate());
+            preparedStatement.setDate(4, subProject.getEndDate());
             preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -68,41 +68,14 @@ public class SubProjectRepository {
         }
 
         return subProject;
-
     }
-    public List<SubProject> readSubProjects() {
+
+    public List<SubProject> readSubProjects(int projectID) {
         List<SubProject> subProjects = new ArrayList<>();
-        String sqlReadProjects = "SELECT * FROM subProject";
+        String sqlReadSubProjects = "SELECT * FROM sub_project WHERE projectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
-            PreparedStatement statement = con.prepareStatement(sqlReadProjects);
-            ResultSet rs = statement.executeQuery();
-
-            while (rs.next()) {
-                SubProject subProject= new SubProject();
-                subProject.setSubProjectID(rs.getInt("subProjectID"));
-                subProject.setSubProjectName(rs.getString("subProjectName"));
-                subProject.setProjectID(rs.getInt("projectID"));
-                subProject.setStartDate(rs.getInt("startDate"));
-                subProject.setEndDate(rs.getInt("endDate"));
-                subProjects.add(subProject);
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return subProjects;
-    }
-
-    /*
-    public List<SubProject> readSubProjectsByID(int projectID){
-        List<SubProject> subProjects = new ArrayList<>();
-        String sqlReadProjectsByID = "SELECT * FROM subproject WHERE projectID = ?";
-        try(Connection con = DriverManager.getConnection(url, user, password)) {
-            PreparedStatement statement = con.prepareStatement(sqlReadProjectsByID);
-
+            PreparedStatement statement = con.prepareStatement(sqlReadSubProjects);
             statement.setInt(1, projectID);
             ResultSet rs = statement.executeQuery();
 
@@ -111,27 +84,26 @@ public class SubProjectRepository {
                 subProject.setSubProjectID(rs.getInt("subProjectID"));
                 subProject.setSubProjectName(rs.getString("subProjectName"));
                 subProject.setProjectID(rs.getInt("projectID"));
-                subProject.setStartDate(rs.getInt("startDate"));
-                subProject.setEndDate(rs.getInt("endDate"));
+                subProject.setStartDate(rs.getDate("startDate"));
+                subProject.setEndDate(rs.getDate("endDate"));
                 subProjects.add(subProject);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return subProjects;
     }
 
-     */
-
-    public void updateSubProject(int subProjectID, String subProjectName, String subProjectManager, int startDate, int endDate) {
+    public void updateSubProject(int subProjectID, String subProjectName, String subProjectManager, Date startDate, Date endDate) {
         String sqlUpdateProjects = "UPDATE subProject SET subProjectName = ?, subProjectManager = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
             statement.setString(1, subProjectName);
             statement.setString(2, subProjectManager);
-            statement.setInt(3, startDate);
-            statement.setInt(4, endDate);
+            statement.setDate(3, startDate);
+            statement.setDate(4, endDate);
             statement.setInt(5, subProjectID);
 
             statement.executeUpdate();

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+  <link th:href="@{/style.css}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Read Sub Projects</title>
+</head>
+<body>
+<h1>Subprojects for project ID: <span th:text="${projectID}"></span></h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="subProject : ${subProjects}">
+    <td><span th:text="${subProject.subProjectName}"></span></td>
+    <td><span th:text="${subProject.startDate}"></span></td>
+    <td><span th:text="${subProject.endDate}"></span></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<a th:href="@{'/subProjects/createSubProject/' + ${projectID}}">
+  <input type="button" value="Create subproject">
+</a>
+</body>
+</html>
