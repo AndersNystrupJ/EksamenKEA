@@ -22,8 +22,8 @@
     <input type="date" id="endDate" name="endDate" required>
     <br>
     <button type="submit">Create</button>
-    <a href="/subProjects/readSubProjects/">
-        <button type="button" class="button">Back to projects</button>
+    <a th:href="@{'/subProjects/readSubProjects/' + ${projectID}}">
+        <button type="button" class="button">Cancel</button>
     </a>
 </form>
 </body>
