@@ -11,16 +11,20 @@
 
 <table>
     <tr>
-        <td>Employee ID:</td>
-        <td><input type="text" name="id" th:value="${user.employeeID}" readonly></td>
+        <td>
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" th:value="${user.employeeID}" readonly>
+        </td>
         <br>
-        <td>Name</td>
-        <td><input type="text" name="name" th:value="${user.username}" readonly></td>
+        <td>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:value="${user.username}" readonly>
+        </td>
     </tr>
 </table>
 
-<a href="/projects/readProjects">Projects
-<button type="button" >To read projects</button>
+<a th:href="@{'/projects/readProjects'}">
+<button type="button" >See projects</button>
 </a>
 
 </body>
