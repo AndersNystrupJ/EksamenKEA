@@ -46,7 +46,7 @@ public class TaskController {
         return "createTask";
 }
     @PostMapping("/saveTasks")
-    public String saveTask(@RequestParam String taskName,
+    public String saveTasks(@RequestParam String taskName,
                            @RequestParam String description,
                            @RequestParam int assignedEmployeeID,
                            @RequestParam String status,
@@ -55,7 +55,7 @@ public class TaskController {
                            @RequestParam int actualTime,
                            @RequestParam int subProjectID){
         taskService.createTask(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID);
-        return "redirect:/tasks/readTasks";
+        return "redirect:/tasks/readTasks/" + subProjectID;
     }
 
 
