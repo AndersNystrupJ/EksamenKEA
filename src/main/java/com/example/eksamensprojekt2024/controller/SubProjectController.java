@@ -16,12 +16,12 @@ import java.util.List;
 public class SubProjectController {
     private final SubProjectService subProjectService;
     private final UserService userService;
-    private final ProjectService projectService;
 
-    public SubProjectController(SubProjectService subProjectService, UserService userService, ProjectService projectService) {
+
+    public SubProjectController(SubProjectService subProjectService, UserService userService) {
         this.subProjectService = subProjectService;
         this.userService = userService;
-        this.projectService = projectService;
+
     }
 
     @GetMapping

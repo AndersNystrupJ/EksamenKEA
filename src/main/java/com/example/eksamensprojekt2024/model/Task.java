@@ -10,12 +10,12 @@ Task {
     private String urgency;
     private int estimatedTime;
     private int actualTime;
+    private int subProjectID;
 
     public Task(){
     }
 
-    public Task(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
-        this.taskID = taskID;
+    public Task(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime, int subProjectID) {
         this.taskName = taskName;
         this.description = description;
         this.assignedEmployeeID = assignedEmployeeID;
@@ -23,6 +23,7 @@ Task {
         this.urgency = urgency;
         this.estimatedTime = estimatedTime;
         this.actualTime = actualTime;
+        this.subProjectID = subProjectID;
     }
 
     public int getTaskID() {
@@ -87,5 +88,13 @@ Task {
 
     public void setActualTime(int actualTime) {
         this.actualTime = actualTime;
+    }
+
+    public int getSubProjectID() {
+        return subProjectID;
+    }
+
+    public void setSubProjectID(int subProjectID) {
+        this.subProjectID = subProjectID;
     }
 }

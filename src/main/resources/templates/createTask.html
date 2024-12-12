@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <title>Create Task</title>
+    <head>
+        <title>Create Task</title>
+    </head>
 <body>
+<h1>Create Task for Subproject ID: <span th:text="${subProjectID}"></span></h1>
+<form th:action="@{/tasks/saveTasks}" method="post">
 
+    <input type="hidden" name="subProjectID" th:value="${subProjectID}">
+
+    <label for="taskName">Task Name:</label>
+    <input type="text" id="taskName" name="taskName" required>
+    <br>
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required>
+    <br>
+    <label for="assignedEmployeeID">Assigned employee:</label>
+    <input type="number" id="assignedEmployeeID" name="assignedEmployeeID" required>
+    <br>
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status" required>
+    <br>
+    <label for="urgency">Urgency:</label>
+    <input type="text" id="urgency" name="urgency" required>
+    <br>
+    <label for="estimatedTime">Estimated Time:</label>
+    <input type="number" id="estimatedTime" name="estimatedTime" required>
+    <br>
+    <label for="actualTime">Actual Time:</label>
+    <input type="number" id="actualTime" name="actualTime" required>
+    <br>
+    <button type="submit">Create</button>
+
+        <button type="button" class="button">Back to projects</button>
+
+</form>
 </body>
 </html>

@@ -17,6 +17,10 @@
   </thead>
   <tbody>
   <tr th:each="subProject : ${subProjects}">
+    <td>
+      <a th:href="@{'/tasks/readTasks/' + ${subProject.getSubProjectID()}}">
+        <span th:text="${subProject.subProjectName}"></span>
+      </a></td>
     <td><span th:text="${subProject.subProjectName}"></span></td>
     <td><span th:text="${subProject.startDate}"></span></td>
     <td><span th:text="${subProject.endDate}"></span></td>
