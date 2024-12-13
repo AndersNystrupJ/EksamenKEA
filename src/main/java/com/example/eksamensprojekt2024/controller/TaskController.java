@@ -34,7 +34,7 @@ public class TaskController {
             model.addAttribute("userAvailable", false);
         }
 
-        return "redirect:/tasks/readTasks/1";
+        return "redirect:/tasks/readTasks";
     }
 
     @GetMapping("/createTask/{subProjectID}")

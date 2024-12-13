@@ -75,10 +75,10 @@ public class SubProjectController {
     @PostMapping("/edit")
     public String updateSubProject(@RequestParam int subProjectID,
                                    @RequestParam String subProjectName,
-                                   @RequestParam String subProjectManager,
+                                   @RequestParam int projectID,
                                    @RequestParam Date startDate,
                                    @RequestParam Date endDate) {
-        subProjectService.updateSubProjects(subProjectID, subProjectName, subProjectManager, startDate, endDate);
+        subProjectService.updateSubProjects(subProjectID, subProjectName, projectID, startDate, endDate);
         return "redirect:/subProjects";
     }
 

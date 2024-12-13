@@ -6,7 +6,7 @@
     <title>Read Tasks </title>
 </head>
 <body>
-<h1>Task for Subproject ID: <span th:text="${subProjectID}"></span></h1>
+<h1>Task for subproject ID: <span th:text="${subProjectID}"></span></h1>
 <table>
     <thead>
     <tr>
@@ -34,7 +34,12 @@
 </table>
 <br>
 <a th:href="@{'/tasks/createTask/' + ${subProjectID}}">
-    <input type="button" value="Create task">
+    <input type="button" value="Create new task">
 </a>
+<br>
+<a th:href="@{'/projects/readProjects'}">
+    <input type="button" value="Return to homepage">
+</a>
+
 </body>
 </html>
