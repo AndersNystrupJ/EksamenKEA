@@ -24,6 +24,14 @@
     <td><span th:text="${subProject.subProjectName}"></span></td>
     <td><span th:text="${subProject.startDate}"></span></td>
     <td><span th:text="${subProject.endDate}"></span></td>
+    <td>
+      <a th:href="@{'/subProjects/updateSubProject/' + ${subProject.subProjectID} + '/'}">
+        <button type="submit" class="edit-button">Edit</button>
+      </a>
+    </td>
+    <td><form th:action="@{/subProjects/delete/{subProjectID}(subProjectID=${subProject.subProjectID})}" method="post">
+      <button type="submit" class="delete-button">Delete</button>
+    </form>
   </tr>
   </tbody>
 </table>
