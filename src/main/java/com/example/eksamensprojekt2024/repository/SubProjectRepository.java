@@ -95,18 +95,16 @@ public class SubProjectRepository {
         return subProjects;
     }
 
+
     public void updateSubProject(int subProjectID, String subProjectName, Date startDate, Date endDate) {
         String sqlUpdateProjects = "UPDATE sub_Project SET subProjectName = ?, subProjectManager = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
-
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
             statement.setString(1, subProjectName);
             statement.setDate(2, startDate);
             statement.setDate(3, endDate);
             statement.setInt(4, subProjectID);
-
             statement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

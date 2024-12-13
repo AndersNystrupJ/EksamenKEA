@@ -80,7 +80,6 @@ public class SubProjectController {
                                    @RequestParam int projectID) {
         subProjectService.updateSubProjects(subProjectID, subProjectName, startDate, endDate);
         return "redirect:/subProjects/readSubProjects" + projectID;
-    }
 
     @PostMapping("delete/{id}")
     public String deleteSubProjectByID(@PathVariable int id) {

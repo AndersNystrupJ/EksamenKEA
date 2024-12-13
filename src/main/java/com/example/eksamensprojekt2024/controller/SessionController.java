@@ -69,6 +69,4 @@ public class SessionController {
         userService.createUser(username, password, role);
         return "redirect:/login";
     }
-
-
 }
