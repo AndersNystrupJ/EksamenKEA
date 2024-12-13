@@ -65,21 +65,21 @@ public class SubProjectController {
     }
 
 
-    @GetMapping("/{id}/edit")
-    public String editSubProject(@PathVariable("id") int subProjectID, Model model) {
+    @GetMapping("/updateSubProject/{subProjectID}")
+    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model) {
         SubProject subProject = subProjectService.findSubProjectByID(subProjectID);
-        model.addAttribute("project", subProject);
-        return "edit";
+        model.addAttribute("subProject", subProject);
+        return "updateSubProject";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/updateSubProject")
     public String updateSubProject(@RequestParam int subProjectID,
                                    @RequestParam String subProjectName,
-                                   @RequestParam String subProjectManager,
                                    @RequestParam Date startDate,
-                                   @RequestParam Date endDate) {
-        subProjectService.updateSubProjects(subProjectID, subProjectName, subProjectManager, startDate, endDate);
-        return "redirect:/subProjects";
+                                   @RequestParam Date endDate,
+                                   @RequestParam int projectID) {
+        subProjectService.updateSubProjects(subProjectID, subProjectName, startDate, endDate);
+        return "redirect:/subProjects/readSubProjects" + projectID;
     }
 
     @PostMapping("delete/{id}")
