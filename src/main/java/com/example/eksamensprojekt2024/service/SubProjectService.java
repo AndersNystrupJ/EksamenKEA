@@ -12,18 +12,19 @@ public class SubProjectService {
 
     private final SubProjectRepository subProjectRepository;
 
-    public SubProjectService(SubProjectRepository subProjectRepository){
+    public SubProjectService(SubProjectRepository subProjectRepository) {
         this.subProjectRepository = subProjectRepository;
     }
 
-    public SubProject findSubProjectByID(int id){
+    public SubProject findSubProjectByID(int id) {
         return subProjectRepository.findSubProjectByID(id);
     }
-    public void createSubProject(String subProjectName, int projectID, Date startDate, Date endDate){
+
+    public void createSubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
         subProjectRepository.createSubProject(subProjectName, projectID, startDate, endDate);
     }
 
-    public List<SubProject> readSubProjects(int projectID){
+    public List<SubProject> readSubProjects(int projectID) {
         return subProjectRepository.readSubProjects(projectID);
     }
 
@@ -31,8 +32,10 @@ public class SubProjectService {
     public void updateSubProjects(int subProjectID, String subProjectName, Date startDate, Date endDate) {
         subProjectRepository.updateSubProject(subProjectID, subProjectName, startDate, endDate);
     }
+
     public void deleteSubProject(int id){
         subProjectRepository.deleteSubProject(id);
     }
 
 }
+
