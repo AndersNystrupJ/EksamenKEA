@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Edit Project</title>
+</head>
+<body>
+    <form th:action="@{/projects/updateProject}" th:object="${project}" method="post">
+        <input type="hidden" th:field="*{projectID}">
+
+           <p><label for="projectName">Name:</label>
+            <input type="text" id="projectName" th:field="*{projectName}" required/></p>
+
+           <p> <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" th:field="*{startDate}" required></p>
+
+           <p> <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" th:field="*{endDate}" required></p>
+        <br>
+            <button type="submit">Update wish</button>
+        <a href="/projects/readProjects">
+            <button type="button" class="button">Cancel</button>
+        </a>
+
+    </form>
+
+</body>
+</html>

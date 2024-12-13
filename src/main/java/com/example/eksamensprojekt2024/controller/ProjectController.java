@@ -74,8 +74,8 @@ public class ProjectController {
         return "readProjects";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editProject(@PathVariable("id") int projectID, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    @GetMapping("/updateProject/{projectID}/")
+    public String editProject(@PathVariable("projectID") int projectID, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User)session.getAttribute("user");
         if(user == null){
             redirectAttributes.addFlashAttribute("error", "You are not logged in!");
@@ -88,20 +88,20 @@ public class ProjectController {
         }
         Project project = projectService.findProjectByID(projectID);
         model.addAttribute("project", project);
-        return "editProject";
+        return "updateProject";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/updateProject")
     public String updateProject(@RequestParam int projectID,
                                 @RequestParam String projectName,
                                 @RequestParam Date startDate,
                                 @RequestParam Date endDate) {
         projectService.updateProject(projectID, projectName, startDate, endDate);
-        return "redirect:/projects";
+        return "redirect:/projects/readProjects";
     }
 
-    @PostMapping("delete/{id}")
-    public String deleteProjectByID(@PathVariable int id, RedirectAttributes redirectAttributes, HttpSession session) {
+    @PostMapping("delete/{projectID}")
+    public String deleteProjectByID(@PathVariable int projectID, RedirectAttributes redirectAttributes, HttpSession session) {
         User user = (User)session.getAttribute("user");
         if(user == null){
             redirectAttributes.addFlashAttribute("error", "You are not logged in!");
@@ -112,7 +112,7 @@ public class ProjectController {
             redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
             return "redirect:/projects/readProjects";
         }
-        projectService.deleteProject(id);
+        projectService.deleteProject(projectID);
         return "redirect:/projects/readProjects";
     }
 

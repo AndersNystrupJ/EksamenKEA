@@ -1,5 +1,6 @@
 package com.example.eksamensprojekt2024.controller;
 import com.example.eksamensprojekt2024.model.SubProject;
+import com.example.eksamensprojekt2024.model.User;
 import com.example.eksamensprojekt2024.service.ProjectService;
 import com.example.eksamensprojekt2024.service.SubProjectService;
 import com.example.eksamensprojekt2024.service.UserService;
@@ -7,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Date;
 import java.util.List;
@@ -66,7 +68,17 @@ public class SubProjectController {
 
 
     @GetMapping("/updateSubProject/{subProjectID}")
-    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model) {
+    public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            redirectAttributes.addFlashAttribute("error", "You are not logged in!");
+            return "redirect:/login";
+        }
+        String role = user.getRole();
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+            redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
+            return "redirect:/projects/readProjects";
+        }
         SubProject subProject = subProjectService.findSubProjectByID(subProjectID);
         model.addAttribute("subProject", subProject);
         return "updateSubProject";
@@ -80,10 +92,10 @@ public class SubProjectController {
                                    @RequestParam int projectID) {
         subProjectService.updateSubProjects(subProjectID, subProjectName, startDate, endDate);
         return "redirect:/subProjects/readSubProjects" + projectID;
-
-    @PostMapping("delete/{id}")
-    public String deleteSubProjectByID(@PathVariable int id) {
-        subProjectService.deleteSubProject(id);
-        return "redirect:/subProjects";
     }
-}
+        @PostMapping("delete/{id}")
+        public String deleteSubProjectByID ( @PathVariable int id){
+            subProjectService.deleteSubProject(id);
+            return "redirect:/subProjects";
+        }
+    }

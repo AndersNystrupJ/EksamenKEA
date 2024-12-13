@@ -28,9 +28,9 @@ public class SubProjectService {
     }
 
 
-    public void updateSubProjects(int subProjectID, String subProjectName, Date startDate, Date endDate){
+    public void updateSubProjects(int subProjectID, String subProjectName, Date startDate, Date endDate) {
         subProjectRepository.updateSubProject(subProjectID, subProjectName, startDate, endDate);
-
+    }
     public void deleteSubProject(int id){
         subProjectRepository.deleteSubProject(id);
     }
