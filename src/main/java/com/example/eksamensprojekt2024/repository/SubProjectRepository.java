@@ -1,5 +1,7 @@
 package com.example.eksamensprojekt2024.repository;
 import com.example.eksamensprojekt2024.model.SubProject;
+import com.example.eksamensprojekt2024.model.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +12,14 @@ import java.util.List;
 @Repository
 public class SubProjectRepository {
 
-   /* public String url = System.getenv("DEV_DB_URL");
-    public String password = System.getenv("DEV_DB_PASSWORD");
-    public String user = System.getenv("DEV_DB_USERNAME");*/
-   @Value("${spring.datasource.url}")
-   private String url;
+    @Autowired
+    private TaskRepository taskRepository;
+
+    /* public String url = System.getenv("DEV_DB_URL");
+     public String password = System.getenv("DEV_DB_PASSWORD");
+     public String user = System.getenv("DEV_DB_USERNAME");*/
+    @Value("${spring.datasource.url}")
+    private String url;
 
     @Value("${spring.datasource.username}")
     private String user;
@@ -24,7 +29,7 @@ public class SubProjectRepository {
 
     public SubProject findSubProjectByID(int id) {
         SubProject subProject = new SubProject();
-        String sql = "SELECT * FROM sub_project WHERE projectID = ?";
+        String sql = "SELECT * FROM sub_project WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sql);
@@ -34,9 +39,9 @@ public class SubProjectRepository {
             if (rs.next()) {
                 subProject.setSubProjectID(rs.getInt("subProjectID"));
                 subProject.setSubProjectName(rs.getString("subProjectName"));
-                subProject.setProjectID(rs.getInt("projectID"));
                 subProject.setStartDate(rs.getDate("startDate"));
                 subProject.setEndDate(rs.getDate("endDate"));
+                subProject.setProjectID(rs.getInt("projectID"));
             }
 
         } catch (SQLException e) {
@@ -44,6 +49,7 @@ public class SubProjectRepository {
         }
         return subProject;
     }
+
     public SubProject createSubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
         SubProject subProject = new SubProject(subProjectName, projectID, startDate, endDate);
 
@@ -80,7 +86,7 @@ public class SubProjectRepository {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                SubProject subProject= new SubProject();
+                SubProject subProject = new SubProject();
                 subProject.setSubProjectID(rs.getInt("subProjectID"));
                 subProject.setSubProjectName(rs.getString("subProjectName"));
                 subProject.setProjectID(rs.getInt("projectID"));
@@ -97,24 +103,22 @@ public class SubProjectRepository {
 
 
     public void updateSubProject(int subProjectID, String subProjectName, Date startDate, Date endDate) {
-        String sqlUpdateProjects = "UPDATE sub_Project SET subProjectName = ?, subProjectManager = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
+        String sqlUpdateProjects = "UPDATE sub_project SET subProjectName = ?, startDate = ?, endDate = ? WHERE subProjectID = ?";
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateProjects);
-            statement.setString(1, subProjectName);
-            statement.setDate(2, startDate);
-            statement.setDate(3, endDate);
-            statement.setInt(4, subProjectID);
+            statement.setInt(1, subProjectID);
+            statement.setString(2, subProjectName);
+            statement.setDate(3, startDate);
+            statement.setDate(4, endDate);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public int deleteSubProject(int id) {
         int updatedRows = 0;
-        String sqlDelete = "DELETE FROM sub_Project WHERE subProjectID = ?";
-
+        String sqlDelete = "DELETE FROM sub_project WHERE subProjectID = ?";
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
             statement.setInt(1, id);
@@ -125,5 +129,3 @@ public class SubProjectRepository {
         return updatedRows;
     }
 }
-
-

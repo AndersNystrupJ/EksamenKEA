@@ -1,6 +1,7 @@
 package com.example.eksamensprojekt2024.repository;
 
 import com.example.eksamensprojekt2024.model.User;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,5 +30,6 @@ public class UserRepository {
     public void createUser(String username, String password, String role) {
         String query = "INSERT INTO user_profile(username, password, role)" + "VALUES(?, ?, ?);";
         jdbcTemplate.update(query, username, password, role);
+
     }
 }

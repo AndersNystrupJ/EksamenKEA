@@ -74,7 +74,7 @@ public class ProjectController {
         return "readProjects";
     }
 
-    @GetMapping("/updateProject/{projectID}/")
+    @GetMapping("/updateProject/{projectID}")
     public String editProject(@PathVariable("projectID") int projectID, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User)session.getAttribute("user");
         if(user == null){
@@ -82,13 +82,13 @@ public class ProjectController {
             return "redirect:/login";
         }
         String role = user.getRole();
-        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_PROJECT_MANAGER".equalsIgnoreCase(role)){
             redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
             return "redirect:/projects/readProjects";
         }
         Project project = projectService.findProjectByID(projectID);
         model.addAttribute("project", project);
-        return "updateProject";
+        return "editProject";
     }
 
     @PostMapping("/updateProject")
@@ -108,7 +108,7 @@ public class ProjectController {
             return "redirect:/login";
         }
         String role = user.getRole();
-        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_MANAGER".equalsIgnoreCase(role)){
+        if(!"ROLE_ADMIN".equalsIgnoreCase(role) && !"ROLE_PROJECT_MANAGER".equalsIgnoreCase(role)){
             redirectAttributes.addFlashAttribute("error", "You do not have permission to access this resource!");
             return "redirect:/projects/readProjects";
         }

@@ -26,14 +26,23 @@
             <td><span th:text="*{project.getEndDate()}"> End Date </span></td>
             <td><span th:text="*{project.projectManagerID}"> Project Manager </span></td>
             <td>
-                <a th:href="@{'/projects/updateProject/' + ${project.projectID} + '/'}">
+                <a th:href="@{'/projects/updateProject/' + ${project.projectID}}">
                     <input type="button" class="edit-button" value="Edit">
                 </a>
             </td>
             <td>
                 <form th:action="@{/projects/delete/{projectID}(projectID=${project.projectID})}" method="post">
-                    <button type="submit" class="delete-button">Delete</button>
+                    <button type="submit" class="delete-button" onclick="confirmDelete()">Delete</button>
                 </form>
+            </td>
+                <script>
+                    function confirmDelete() {
+                        const confirmation = confirm("Deleting this project will delete all related subprojects and tasks. Are you sure?");
+                        if (confirmation) {
+                            document.getElementById("deleteForm").submit();
+                        }
+                    }
+                </script>
         </tr>
         </tbody>
     </table>

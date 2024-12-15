@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="">
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Edit Project</title>
+</head>
+<body>
+
+<h1> Update the subproject: <span th:text="${subProject.subProjectID}"></span>
+</h1>
+
+<form th:action="@{/subProjects/updateSubProject}" th:object="${subProject}" method="post">
+
+    <input type="hidden" name="subProjectID" th:value="*{subProjectID}">
+
+    <label for="subProjectName"> SubProject Name:</label>
+        <input type="text" id="subProjectName"  th:name="subProjectName" th:value="*{subProjectName}" required/>
+
+    <label for="startDate"> Startdate: </label>
+    <input type="date" id="startDate" th:value="*{startDate}" required>
+
+    <label for="endDate"> EndDate: </label>
+    <input type="date" id="endDate" th:value="*{endDate}" required>
+
+    <input type="hidden" th:name="projectID" th:value="*{projectID}">
+
+    <button type="submit">Update sub project</button>
+
+    <a th:href="@{'/subProjects/readSubProjects/' + *{projectID}}">
+        <button type="button" class="button">Back</button>
+    </a>
+</form>
+</body>
+</html>

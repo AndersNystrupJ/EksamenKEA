@@ -37,13 +37,13 @@ public class TaskRepository {
                 task.setTaskID(rs.getInt("taskID"));
                 task.setTaskName(rs.getString("taskName"));
                 task.setDescription(rs.getString("description"));
-                task.setAssignedEmployeeID(rs.getInt("employeeID"));
+                task.setAssignedEmployeeID(rs.getInt("assignedEmployeeID"));
                 task.setStatus(rs.getString("status"));
                 task.setUrgency(rs.getString("urgency"));
                 task.setEstimatedTime(rs.getInt("estimatedTime"));
                 task.setActualTime(rs.getInt("actualTime"));
+                task.setSubProjectID(rs.getInt("subProjectID"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class TaskRepository {
     public Task createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime, int subProjectID) {
         Task task = new Task(taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID);
 
-        String sqlCreateTask = "INSERT INTO task (taskName, description, employeeID, status, urgency, estimatedTime, actualTime, subProjectID) VALUES(?,?,?,?,?,?,?,?)";
+        String sqlCreateTask = "INSERT INTO task (taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime, subProjectID) VALUES(?,?,?,?,?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement preparedStatement = con.prepareStatement(sqlCreateTask, Statement.RETURN_GENERATED_KEYS);
@@ -93,7 +93,7 @@ public class TaskRepository {
                 task.setTaskID(rs.getInt("taskID"));
                 task.setTaskName(rs.getString("taskName"));
                 task.setDescription(rs.getString("description"));
-                task.setAssignedEmployeeID(rs.getInt("employeeID"));
+                task.setAssignedEmployeeID(rs.getInt("assignedEmployeeID"));
                 task.setStatus(rs.getString("status"));
                 task.setUrgency(rs.getString("urgency"));
                 task.setEstimatedTime(rs.getInt("estimatedTime"));
@@ -109,7 +109,7 @@ public class TaskRepository {
     }
 
     public void updateTask(int taskID, String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime) {
-        String sqlUpdateTasks = "UPDATE task SET taskName = ?, description = ?, employeeID = ?, status = ?, urgency = ?, estimatedTime = ?, actualTime = ? WHERE taskID = ?";
+        String sqlUpdateTasks = "UPDATE task SET taskName = ?, description = ?, assignedEmployeeID = ?, status = ?, urgency = ?, estimatedTime = ?, actualTime = ? WHERE taskID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlUpdateTasks);
@@ -120,6 +120,7 @@ public class TaskRepository {
             statement.setString(5, urgency);
             statement.setInt(6, estimatedTime);
             statement.setInt(7, actualTime);
+            statement.setInt(8, taskID);
 
             statement.executeUpdate();
 

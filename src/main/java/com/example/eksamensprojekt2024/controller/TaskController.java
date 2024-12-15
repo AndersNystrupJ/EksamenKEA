@@ -2,6 +2,7 @@ package com.example.eksamensprojekt2024.controller;
 
 
 import com.example.eksamensprojekt2024.model.Task;
+import com.example.eksamensprojekt2024.service.SubProjectService;
 import com.example.eksamensprojekt2024.service.TaskService;
 import com.example.eksamensprojekt2024.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +19,7 @@ public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
 
-    public TaskController(TaskService taskService, UserService userService) {
+    public TaskController(TaskService taskService, UserService userService, SubProjectService subProjectService) {
         this.userService = userService;
         this.taskService = taskService;
     }
@@ -45,7 +46,7 @@ public class TaskController {
         model.addAttribute("subProjectID", subProjectID);
         return "createTask";
 }
-    @PostMapping("/saveTasks")
+    @PostMapping("/saveTask")
     public String saveTasks(@RequestParam String taskName,
                            @RequestParam String description,
                            @RequestParam int assignedEmployeeID,
@@ -61,34 +62,36 @@ public class TaskController {
 
     @GetMapping("/readTasks/{subProjectID}")
     public String readTasks(@PathVariable("subProjectID") int subProjectID, Model model) {
-        List<Task> task = taskService.readTasks(subProjectID);
-        model.addAttribute("task", task);
+        List<Task> tasks = taskService.readTasks(subProjectID);
+        model.addAttribute("tasks", tasks);
         model.addAttribute("subProjectID", subProjectID);
         return "readTasks";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editTask(@PathVariable("id") int taskID, Model model) {
+    @GetMapping("/updateTask/{taskID}")
+    public String editTask(@PathVariable("taskID") int taskID, Model model) {
         Task task = taskService.findTaskByID(taskID);
         model.addAttribute("task", task);
         return "editTask";
     }
-    @PostMapping("/edit")
+    @PostMapping("/updateTask")
     public String updateTask(@RequestParam int taskID,
-                                @RequestParam String taskName,
-                                @RequestParam String description,
-                                @RequestParam int assignedEmployeeID,
-                                @RequestParam String status,
-                                @RequestParam String urgency,
-                                @RequestParam int estimatedTime,
-                                @RequestParam int actualTime) {
+                             @RequestParam String taskName,
+                             @RequestParam String description,
+                             @RequestParam int assignedEmployeeID,
+                             @RequestParam String status,
+                             @RequestParam String urgency,
+                             @RequestParam int estimatedTime,
+                             @RequestParam int actualTime,
+                             @RequestParam int subProjectID) {
         taskService.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
-        return "redirect:/projects";
+        return "redirect:/tasks/readTasks/" + subProjectID;
     }
-    @PostMapping("delete/{id}")
-    public String deleteTaskByID(@PathVariable int id) {
-        taskService.deleteTask(id);
-        return "redirect:/projects";
+
+    @PostMapping("/deleteTask/{taskID}")
+    public String deleteTask(@PathVariable int taskID, @RequestParam int subProjectID) {
+        taskService.deleteTask(taskID);
+        return "redirect:/tasks/readTasks/" + subProjectID;
     }
 
 }
