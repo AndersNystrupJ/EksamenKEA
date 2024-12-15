@@ -8,9 +8,9 @@ public class SubProject {
     private int projectID;
     private Date startDate;
     private Date endDate;
+    private int totalEstimatedTimeSubProject;
 
     public SubProject(){
-
     }
     public SubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
         this.subProjectName = subProjectName;
@@ -58,5 +58,13 @@ public class SubProject {
 
     public void setProjectID(int projectID) {
         this.projectID = projectID;
+    }
+
+    public int getTotalEstimatedTimeSubProject() {
+        return totalEstimatedTimeSubProject;
+    }
+
+    public void setTotalEstimatedTimeSubProject(int totalEstimatedTimeSubProject) {
+        this.totalEstimatedTimeSubProject = totalEstimatedTimeSubProject;
     }
 }

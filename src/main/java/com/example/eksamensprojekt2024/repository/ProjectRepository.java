@@ -33,6 +33,16 @@ public class ProjectRepository {
     @Value("${spring.datasource.password}")
     private String password;
 
+    public int calculateTotalEstimatedTimeForProject(int projectID) {
+        List<SubProject> subProjects = subProjectRepository.readSubProjects(projectID);
+        int totalEstimatedTimeProject = 0;
+
+        for (SubProject subProject : subProjects) {
+            totalEstimatedTimeProject += subProject.getTotalEstimatedTimeSubProject();
+        }
+
+        return totalEstimatedTimeProject;
+    }
 
     public Project findProjectByID(int id) {
         Project project = new Project();
@@ -94,6 +104,8 @@ public class ProjectRepository {
                 project.setStartDate(rs.getDate("startDate"));
                 project.setEndDate(rs.getDate("endDate"));
                 project.setProjectManagerID(rs.getInt("projectManagerID"));
+                int totalEstimatedTime = calculateTotalEstimatedTimeForProject(project.getProjectID());
+                project.setTotalEstimatedTimeProject(totalEstimatedTime);
                 projects.add(project);
             }
         } catch (SQLException e) {

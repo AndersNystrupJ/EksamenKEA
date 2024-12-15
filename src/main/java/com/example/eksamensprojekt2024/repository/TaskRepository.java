@@ -24,13 +24,13 @@ public class TaskRepository {
     @Value("${spring.datasource.password}")
     private String password;
 
-    public Task findTaskByID(int id) {
+    public Task findTaskByID(int taskID) {
         Task task = new Task();
         String sql = "SELECT * FROM task WHERE taskID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, taskID);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {

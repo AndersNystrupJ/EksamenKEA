@@ -27,6 +27,18 @@ public class SubProjectRepository {
     @Value("${spring.datasource.password}")
     private String password;
 
+
+    public int calculateTotalTimeEstimate(int subProjectID) {
+        List<Task> tasks = taskRepository.readTasks(subProjectID);
+        int totalEstimatedTimeSubProject = 0;
+
+        for (Task task : tasks)
+        {
+            totalEstimatedTimeSubProject += task.getEstimatedTime();
+        }
+        return totalEstimatedTimeSubProject;
+    }
+
     public SubProject findSubProjectByID(int id) {
         SubProject subProject = new SubProject();
         String sql = "SELECT * FROM sub_project WHERE subProjectID = ?";
@@ -92,6 +104,8 @@ public class SubProjectRepository {
                 subProject.setProjectID(rs.getInt("projectID"));
                 subProject.setStartDate(rs.getDate("startDate"));
                 subProject.setEndDate(rs.getDate("endDate"));
+                int totalEstimatedTimeSubProject = calculateTotalTimeEstimate(subProject.getSubProjectID());
+                subProject.setTotalEstimatedTimeSubProject(totalEstimatedTimeSubProject);
                 subProjects.add(subProject);
             }
         } catch (SQLException e) {

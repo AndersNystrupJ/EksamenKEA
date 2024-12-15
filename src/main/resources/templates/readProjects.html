@@ -14,6 +14,7 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Project Manager</th>
+            <th>Total Estimated Time</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
             <td><span th:text="*{project.getStartDate()}"> Start Date </span></td>
             <td><span th:text="*{project.getEndDate()}"> End Date </span></td>
             <td><span th:text="*{project.projectManagerID}"> Project Manager </span></td>
+            <td><span th:text="*{project.totalEstimatedTimeProject}"> Total Estimated Time </span></td>
             <td>
                 <a th:href="@{'/projects/updateProject/' + ${project.projectID}}">
                     <input type="button" class="edit-button" value="Edit">

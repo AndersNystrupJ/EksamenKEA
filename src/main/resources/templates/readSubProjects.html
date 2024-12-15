@@ -13,6 +13,7 @@
     <th>Name</th>
     <th>Start Date</th>
     <th>End Date</th>
+    <th>Total Estimated Time</th>
   </tr>
   </thead>
   <tbody>
@@ -24,6 +25,7 @@
     <td><span th:text="${subProject.subProjectName}"></span></td>
     <td><span th:text="${subProject.startDate}"></span></td>
     <td><span th:text="${subProject.endDate}"></span></td>
+    <td><span th:text="${subProject.totalEstimatedTimeSubProject}"></span></td>
     <td>
       <a th:href="@{'/subProjects/updateSubProject/' + ${subProject.subProjectID}}">
         <button type="submit" class="edit-button">Edit</button>

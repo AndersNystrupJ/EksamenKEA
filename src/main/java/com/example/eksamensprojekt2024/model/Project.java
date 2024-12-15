@@ -8,6 +8,7 @@ public class Project {
     private java.sql.Date startDate;
     private java.sql.Date endDate;
     private int projectManagerID;
+    private int totalEstimatedTimeProject;
 
 
 
@@ -58,7 +59,16 @@ public class Project {
     public int getProjectManagerID() {
         return projectManagerID;
     }
+
     public void setProjectManagerID(int projectManagerID) {
         this.projectManagerID = projectManagerID;
+    }
+
+    public int getTotalEstimatedTimeProject() {
+        return totalEstimatedTimeProject;
+    }
+
+    public void setTotalEstimatedTimeProject(int totalEstimatedTimeProject) {
+        this.totalEstimatedTimeProject = totalEstimatedTimeProject;
     }
 }
