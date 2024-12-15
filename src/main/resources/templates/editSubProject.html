@@ -18,10 +18,10 @@
         <input type="text" id="subProjectName"  th:name="subProjectName" th:value="*{subProjectName}" required/>
 
     <label for="startDate"> Startdate: </label>
-    <input type="date" id="startDate" th:value="*{startDate}" required>
+    <input type="date" id="startDate" th:field="*{startDate}" required>
 
     <label for="endDate"> EndDate: </label>
-    <input type="date" id="endDate" th:value="*{endDate}" required>
+    <input type="date" id="endDate" th:field="*{endDate}" required>
 
     <input type="hidden" th:name="projectID" th:value="*{projectID}">
 
