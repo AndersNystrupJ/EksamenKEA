@@ -6,7 +6,7 @@
     <title>Read Tasks </title>
 </head>
 <body>
-<h1>Task for subproject ID: <span th:text="${subProjectID}"></span></h1>
+<h1>Tasks for subproject ID: <span th:text="${subProjectID}"></span></h1>
 <table>
     <thead>
     <tr>
@@ -20,15 +20,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="task : ${task}">
-        <td>
-            <span th:text="${task.taskName}"></span></td>
+    <tr th:each="task : ${tasks}">
+        <td><span th:text="${task.taskName}"></span></td>
         <td><span th:text="${task.description}"></span></td>
         <td><span th:text="${task.assignedEmployeeID}"></span></td>
         <td><span th:text="${task.status}"></span></td>
         <td><span th:text="${task.urgency}"></span></td>
         <td><span th:text="${task.estimatedTime}"></span></td>
         <td><span th:text="${task.actualTime}"></span></td>
+        <td>
+            <a th:href="@{'/tasks/updateTask/' + ${task.taskID}}">
+                <button type="submit" class="edit-button">Edit</button>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{'/tasks/deleteTask/' + ${task.taskID}}" method="post">
+                <input type="hidden" name="subProjectID" th:value="${subProjectID}">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

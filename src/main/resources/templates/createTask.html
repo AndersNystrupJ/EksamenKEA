@@ -8,7 +8,7 @@
     </head>
 <body>
 <h1>Create Task for Subproject ID: <span th:text="${subProjectID}"></span></h1>
-<form th:action="@{/tasks/saveTasks}" method="post">
+<form th:action="@{/tasks/saveTask}" method="post">
 
     <input type="hidden" name="subProjectID" th:value="${subProjectID}">
 

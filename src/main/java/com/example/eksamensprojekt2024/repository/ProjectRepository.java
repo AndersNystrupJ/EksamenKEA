@@ -1,5 +1,7 @@
 package com.example.eksamensprojekt2024.repository;
 import com.example.eksamensprojekt2024.model.Project;
+import com.example.eksamensprojekt2024.model.SubProject;
+import com.example.eksamensprojekt2024.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,6 +16,10 @@ public class ProjectRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private SubProjectRepository subProjectRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
     /*public String url = System.getenv("DEV_DB_URL");
     public String password = System.getenv("DEV_DB_PASSWORD");
@@ -111,7 +117,6 @@ public class ProjectRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public int deleteProject(int id) {
@@ -126,10 +131,6 @@ public class ProjectRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return updatedRows;
-
     }
-
-
 }

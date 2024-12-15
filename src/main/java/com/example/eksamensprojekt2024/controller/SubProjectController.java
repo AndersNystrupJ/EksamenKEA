@@ -1,13 +1,11 @@
 package com.example.eksamensprojekt2024.controller;
 import com.example.eksamensprojekt2024.model.SubProject;
-import com.example.eksamensprojekt2024.service.ProjectService;
 import com.example.eksamensprojekt2024.service.SubProjectService;
 import com.example.eksamensprojekt2024.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.Date;
 import java.util.List;
 
@@ -69,7 +67,7 @@ public class SubProjectController {
     public String editSubProject(@PathVariable("subProjectID") int subProjectID, Model model) {
         SubProject subProject = subProjectService.findSubProjectByID(subProjectID);
         model.addAttribute("subProject", subProject);
-        return "updateSubProject";
+        return "editSubProject";
     }
 
     @PostMapping("/updateSubProject")
@@ -79,12 +77,12 @@ public class SubProjectController {
                                    @RequestParam Date endDate,
                                    @RequestParam int projectID) {
         subProjectService.updateSubProjects(subProjectID, subProjectName, startDate, endDate);
-        return "redirect:/subProjects/readSubProjects" + projectID;
+        return "redirect:/subProjects/readSubProjects/" + projectID;
     }
 
-    @PostMapping("delete/{id}")
-    public String deleteSubProjectByID(@PathVariable int id) {
-        subProjectService.deleteSubProject(id);
-        return "redirect:/subProjects";
+    @PostMapping("delete/{subProjectID}")
+    public String deleteSubProjectByID(@PathVariable int subProjectID, @RequestParam int projectID) {
+        subProjectService.deleteSubProject(subProjectID);
+        return "redirect:/subProjects/readSubProjects/" + projectID;
     }
 }

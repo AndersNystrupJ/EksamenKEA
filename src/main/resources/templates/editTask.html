@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
+    <link th:href="@{/style.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Project</title>
 </head>
 <body>
+<form th:action="@{/tasks/updateTask}" method="post" th:object="${task}">
+
+    <input type="hidden" name="taskID" th:field="*{taskID}">
+
+    <p><label for="taskName">Name:</label>
+        <input type="text" id="taskName" th:field="*{taskName}" required/></p>
+
+    <p> <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}" required></p>
+
+    <p> <label for="assignedEmployee">Assigned Employee:</label>
+        <input type="text" id="assignedEmployee" th:field="*{assignedEmployeeID}" required></p>
+
+    <p> <label for="status">Status:</label>
+        <input type="text" id="status" th:field="*{status}" required></p>
+
+    <p> <label for="urgency">Urgency:</label>
+        <input type="text" id="urgency" th:field="*{urgency}" required></p>
+
+    <p> <label for="estimatedTime">Estimated Time:</label>
+        <input type="text" id="estimatedTime" th:field="*{estimatedTime}" required></p>
+
+    <p> <label for="actualTime">Actual Time:</label>
+        <input type="text" id="actualTime" th:field="*{actualTime}" required></p>
+
+    <input type="hidden" name="subProjectID" th:value="*{subProjectID}">
+
+    <button type="submit">Update task</button>
+
+    <a th:href="@{'/tasks/readTasks/' + *{subProjectID}}">
+        <button type="button" class="button">Back</button>
+    </a>
+</form>
 
 </body>
 </html>
