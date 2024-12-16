@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Read Projects</title>
 </head>
 <body>
+<div class="container">
 <h1>Projects</h1>
     <table>
         <thead>
@@ -29,11 +30,11 @@
             <td><span th:text="*{project.totalEstimatedTimeProject}"> Total Estimated Time </span></td>
             <td>
                 <a th:href="@{'/projects/updateProject/' + ${project.projectID}}">
-                    <input type="button" class="edit-button" value="Edit">
+                    <button type="submit" class="edit-button">Edit</button>
                 </a>
             </td>
             <td>
-                <form th:action="@{/projects/delete/{projectID}(projectID=${project.projectID})}" method="post">
+                <form th:action="@{/projects/delete/{projectID}(projectID=${project.projectID})}" method="post" style="display:inline;">
                     <button type="submit" class="delete-button" onclick="confirmDelete()">Delete</button>
                 </form>
             </td>
@@ -49,11 +50,12 @@
         </tbody>
     </table>
     <a th:href="@{'/projects' + '/create'}">
-        <input type="button" value="Create new project">
+        <button type="button">Create new project</button>
     </a>
     <br>
+<br>
     <a th:href="@{'/logout'}">
-        <input type="button" value="Logout">
+        <button type="button">Logout</button>
     </a>
 </div>
 </body>

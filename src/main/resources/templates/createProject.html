@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <title>Create Project</title>
 </head>
 <body>
+<div class="container">
 <h1>Create a Project</h1>
 
 <form th:action="@{/projects/save}" th:object="${project}" method="post">
@@ -31,6 +32,6 @@
         <button type="button" class="button">Back</button>
     </a>
 </form>
-
+</div>
 </body>
 </html>

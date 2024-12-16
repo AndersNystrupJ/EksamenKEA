@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Logged in</title>
 </head>
 <body>
+<div class="container">
 
 <h1>Logged in</h1>
 
@@ -17,7 +18,7 @@
         </td>
         <br>
         <td>
-            <label for="name">Name:</label>
+            <label for="name">User:</label>
             <input type="text" id="name" name="name" th:value="${user.username}" readonly>
         </td>
     </tr>

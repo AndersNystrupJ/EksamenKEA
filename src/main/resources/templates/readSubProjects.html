@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="">
 <head>
-  <link th:href="@{/style.css}" rel="stylesheet">
+  <link th:href="@{/styles.css}" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Read Sub Projects</title>
 </head>
 <body>
+<div class="container">
 <h1>Subprojects for project ID: <span th:text="${projectID}"></span></h1>
 <table>
   <thead>
@@ -51,11 +52,12 @@
 </table>
 <br>
 <a th:href="@{'/subProjects/createSubProject/' + ${projectID}}">
-  <input type="button" value="Create new subproject">
+  <button type="button">Create new Sub-project</button>
 </a>
 <br>
+<br>
 <a th:href="@{'/projects/readProjects'}">
-  <input type="button" value="Return to homepage">
+  <button type="button">Return to Homepage</button>
 </a>
 
 </body>

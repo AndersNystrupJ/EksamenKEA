@@ -1,0 +1,219 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+table th, table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+input[type="text"], input[type="date"], input[type="number"], input[type="email"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+button, .button-link {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+button:hover, .button-link:hover {
+    background-color: #0056b3;
+}
+
+
+.button-link {
+    text-decoration: none;
+}
+
+
+.delete-button {
+    background-color: #e74c3c !important;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    box-shadow: none !important;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+
+form .delete-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+
+button[type="submit"], button[type="button"], input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+.login-container, .register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2, .register-container h2 {
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.login-container input, .register-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.login-container button, .register-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover, .register-container button:hover {
+    background-color: #0056b3;
+}
+
+
+.delete-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+
+button[type="button"].back-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button[type="button"].back-button:hover {
+    background-color: #ddd;
+}
+
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    box-shadow: none;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.delete-button-container button {
+    background-color: transparent !important;
+}

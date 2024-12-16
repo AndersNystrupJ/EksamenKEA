@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <title>Create Sub Project</title>
     <head>
         <title>Create SubProject</title>
     </head>
 <body>
+<div class="container">
 <h1>Create subproject for Project ID: <span th:text="${projectID}"></span></h1>
 <form th:action="@{/subProjects/saveSubProject}" method="post">
 
@@ -26,5 +27,6 @@
         <button type="button" class="button">Cancel</button>
     </a>
 </form>
+</div>
 </body>
 </html>

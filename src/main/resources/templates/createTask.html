@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <title>Create Task</title>
     <head>
         <title>Create Task</title>
     </head>
 <body>
+<div class="container">
 <h1>Create Task for Subproject ID: <span th:text="${subProjectID}"></span></h1>
 <form th:action="@{/tasks/saveTask}" method="post">
 
