@@ -131,13 +131,13 @@ public class ProjectRepository {
         }
     }
 
-    public int deleteProject(int id) {
+    public int deleteProject(int projectID) {
         int updatedRows = 0;
         String sqlDelete = "DELETE FROM projects WHERE projectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
-            statement.setInt(1, id);
+            statement.setInt(1, projectID);
             updatedRows = statement.executeUpdate();
 
         } catch (SQLException e) {

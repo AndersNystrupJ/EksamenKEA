@@ -39,13 +39,13 @@ public class SubProjectRepository {
         return totalEstimatedTimeSubProject;
     }
 
-    public SubProject findSubProjectByID(int id) {
+    public SubProject findSubProjectByID(int subProjectID) {
         SubProject subProject = new SubProject();
         String sql = "SELECT * FROM sub_project WHERE subProjectID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setInt(1, id);
+            statement.setInt(1, subProjectID);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {

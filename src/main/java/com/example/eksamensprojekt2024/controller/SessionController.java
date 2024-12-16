@@ -5,10 +5,8 @@ import com.example.eksamensprojekt2024.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -67,6 +65,19 @@ public class SessionController {
                            @RequestParam String password,
                            @RequestParam String role) {
         userService.createUser(username, password, role);
+        return "redirect:/login";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteCurrentUser(HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "You are not logged in!");
+            return "redirect:/login";
+        }
+        userService.deleteUser(user.getEmployeeID());
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
         return "redirect:/login";
     }
 }

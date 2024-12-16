@@ -53,6 +53,9 @@
         <button type="button">Create new project</button>
     </a>
     <br>
+    <form th:action="@{/deleteUser}" method="post">
+        <button type="submit" class="delete-button">Delete Current User</button>
+    </form>
 <br>
     <a th:href="@{'/logout'}">
         <button type="button">Logout</button>
