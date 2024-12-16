@@ -16,8 +16,8 @@ public class ProjectService {
     }
 
 
-    public Project findProjectByID(int id) {
-        return projectRepository.findProjectByID(id);
+    public Project findProjectByID(int projectID) {
+        return projectRepository.findProjectByID(projectID);
     }
 
     public void createProject(String projectName, Date startDate, Date endDate, int projectManagerID) {
@@ -32,8 +32,8 @@ public class ProjectService {
         projectRepository.updateProject(projectID, projectName, startDate, endDate);
     }
 
-    public void deleteProject(int id) {
-        projectRepository.deleteProject(id);
+    public void deleteProject(int projectID) {
+        projectRepository.deleteProject(projectID);
     }
 
 }

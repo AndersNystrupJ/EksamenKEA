@@ -14,8 +14,8 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public Task findTaskByID(int id) {
-        return taskRepository.findTaskByID(id);
+    public Task findTaskByID(int taskID) {
+        return taskRepository.findTaskByID(taskID);
     }
 
     public void createTask(String taskName, String description, int assignedEmployeeID, String status, String urgency, int estimatedTime, int actualTime, int subProjectID) {
@@ -30,7 +30,7 @@ public class TaskService {
         taskRepository.updateTask(taskID, taskName, description, assignedEmployeeID, status, urgency, estimatedTime, actualTime);
     }
 
-    public void deleteTask(int id) {
-        taskRepository.deleteTask(id);
+    public void deleteTask(int taskID) {
+        taskRepository.deleteTask(taskID);
     }
 }

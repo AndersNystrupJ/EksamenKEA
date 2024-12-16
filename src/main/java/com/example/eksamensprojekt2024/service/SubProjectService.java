@@ -16,8 +16,8 @@ public class SubProjectService {
         this.subProjectRepository = subProjectRepository;
     }
 
-    public SubProject findSubProjectByID(int id) {
-        return subProjectRepository.findSubProjectByID(id);
+    public SubProject findSubProjectByID(int subProjectID) {
+        return subProjectRepository.findSubProjectByID(subProjectID);
     }
 
     public void createSubProject(String subProjectName, int projectID, Date startDate, Date endDate) {
@@ -33,8 +33,8 @@ public class SubProjectService {
         subProjectRepository.updateSubProject(subProjectID, subProjectName, startDate, endDate);
     }
 
-    public void deleteSubProject(int id){
-        subProjectRepository.deleteSubProject(id);
+    public void deleteSubProject(int subProjectID){
+        subProjectRepository.deleteSubProject(subProjectID);
     }
 
 }

@@ -6,6 +6,7 @@
     <title>Edit Project</title>
 </head>
 <body>
+<h1>Update The Project</h1>
     <form th:action="@{/projects/updateProject}" th:object="${project}" method="post">
         <input type="hidden" th:field="*{projectID}">
 

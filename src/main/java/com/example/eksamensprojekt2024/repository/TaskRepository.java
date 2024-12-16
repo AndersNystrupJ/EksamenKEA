@@ -129,13 +129,13 @@ public class TaskRepository {
         }
     }
 
-    public int deleteTask(int id) {
+    public int deleteTask(int taskID) {
         int updatedRows = 0;
         String sqlDelete = "DELETE FROM task WHERE taskID = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
-            statement.setInt(1, id);
+            statement.setInt(1, taskID);
             updatedRows = statement.executeUpdate();
 
         } catch (SQLException e) {

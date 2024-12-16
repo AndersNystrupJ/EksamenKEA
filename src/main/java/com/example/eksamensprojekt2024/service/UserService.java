@@ -21,4 +21,8 @@ public class UserService {
         userRepository.createUser(username, password, role);
     }
 
+    public void deleteUser(int employeeID){
+        userRepository.deleteUser(employeeID);
+    }
+
 }
