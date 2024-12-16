@@ -19,6 +19,13 @@ public class UserRepository {
 
     private JdbcTemplate jdbcTemplate;
 
+    /*
+    public String url = System.getenv("PROD_DB_URL");
+    public String password = System.getenv("PROD_DB_PASSWORD");
+    public String user = System.getenv("PROD_DB_USERNAME");
+
+     */
+
     @Value("${spring.datasource.url}")
     private String url;
 

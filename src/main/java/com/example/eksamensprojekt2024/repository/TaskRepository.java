@@ -12,9 +12,13 @@ import java.util.List;
 @Repository
 public class TaskRepository {
 
-    /*public String url = System.getenv("DEV_DB_URL");
-    public String password = System.getenv("DEV_DB_PASSWORD");
-    public String user = System.getenv("DEV_DB_USERNAME");*/
+    /*
+    public String url = System.getenv("PROD_DB_URL");
+    public String password = System.getenv("PROD_DB_PASSWORD");
+    public String user = System.getenv("PROD_DB_USERNAME");
+
+     */
+
     @Value("${spring.datasource.url}")
     private String url;
 
@@ -23,6 +27,7 @@ public class TaskRepository {
 
     @Value("${spring.datasource.password}")
     private String password;
+
 
     public Task findTaskByID(int taskID) {
         Task task = new Task();
