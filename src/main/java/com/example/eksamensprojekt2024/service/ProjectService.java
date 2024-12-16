@@ -36,5 +36,8 @@ public class ProjectService {
         projectRepository.deleteProject(projectID);
     }
 
+    public int deleteProjectsWhenDeletingManager(int projectManagerID) {
+        return projectRepository.deleteProjectsWhenDeletingManager(projectManagerID);
+    }
 }
 

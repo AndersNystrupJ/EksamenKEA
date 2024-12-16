@@ -145,4 +145,19 @@ public class ProjectRepository {
         }
         return updatedRows;
     }
+
+    public int deleteProjectsWhenDeletingManager(int projectManagerID) {
+        int updatedRows = 0;
+        String sqlDelete = "DELETE FROM projects WHERE projectManagerID = ?";
+
+        try (Connection con = DriverManager.getConnection(url, user, password)) {
+            PreparedStatement statement = con.prepareStatement(sqlDelete);
+            statement.setInt(1, projectManagerID);
+            updatedRows = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return updatedRows;
+    }
 }

@@ -130,12 +130,12 @@ public class SubProjectRepository {
         }
     }
 
-    public int deleteSubProject(int id) {
+    public int deleteSubProject(int subProjectID) {
         int updatedRows = 0;
         String sqlDelete = "DELETE FROM sub_project WHERE subProjectID = ?";
         try (Connection con = DriverManager.getConnection(url, user, password)) {
             PreparedStatement statement = con.prepareStatement(sqlDelete);
-            statement.setInt(1, id);
+            statement.setInt(1, subProjectID);
             updatedRows = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

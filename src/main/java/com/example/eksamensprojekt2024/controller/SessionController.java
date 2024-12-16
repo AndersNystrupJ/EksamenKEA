@@ -1,6 +1,7 @@
 package com.example.eksamensprojekt2024.controller;
 
 import com.example.eksamensprojekt2024.model.User;
+import com.example.eksamensprojekt2024.service.ProjectService;
 import com.example.eksamensprojekt2024.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SessionController {
 
     private UserService userService;
+    private ProjectService projectService;
 
-    public SessionController(UserService userService) {
+    public SessionController(UserService userService, ProjectService projectService) {
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @GetMapping("/login")
@@ -75,6 +78,7 @@ public class SessionController {
             redirectAttributes.addFlashAttribute("error", "You are not logged in!");
             return "redirect:/login";
         }
+        projectService.deleteProjectsWhenDeletingManager(user.getEmployeeID());
         userService.deleteUser(user.getEmployeeID());
         session.invalidate();
         redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
