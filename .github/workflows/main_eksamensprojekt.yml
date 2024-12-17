@@ -24,9 +24,9 @@ jobs:
 
       - name: Build with Maven
         env:
-          PROD_DB_URL: @{{secrets.PROD_DB_URL}}
-          PROD_DB_USERNAME: @{{secrets.PROD_DB_USERNAME}}
-          PROD_DB_PASSWORD: @{{secrets.PROD_DB_PASSWORD}}
+          PROD_DB_URL: ${{secrets.PROD_DB_URL}}
+          PROD_DB_USERNAME: ${{secrets.PROD_DB_USERNAME}}
+          PROD_DB_PASSWORD: ${{secrets.PROD_DB_PASSWORD}}
 
         run: mvn clean install
 
@@ -57,3 +57,4 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D902600EF601454AA8C1949181A7E0A0 }}
+
