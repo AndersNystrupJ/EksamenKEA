@@ -58,7 +58,7 @@ public class SessionController {
     public String registerUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "/register";
+        return "register";
     }
 
     //REGISTER SAVE USER:
