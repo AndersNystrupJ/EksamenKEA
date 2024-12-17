@@ -1,7 +1,6 @@
 package com.example.eksamensprojekt2024.model;
 
-public class
-Task {
+public class Task {
     private int taskID;
     private String taskName;
     private String description;

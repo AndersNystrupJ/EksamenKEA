@@ -30,7 +30,7 @@ class ProjectRepositoryTest {
     void createProject() {
         Date startDate = Date.valueOf("2024-12-20");
         Date endDate = Date.valueOf("2024-12-21");
-        projectRepository.createProject("Test", startDate, endDate, 1);
+        projectRepository.createProject("Test", "Test Manager", startDate, endDate);
         int expectedResult = 3;
         int actualResult = projectRepository.readProjects().size();
         assertEquals(expectedResult, actualResult);

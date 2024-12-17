@@ -31,7 +31,7 @@ public class SubProjectRepository {
     private String password;
 
 
-    public int calculateTotalTimeEstimate(int subProjectID) {
+    public int calculateTotalTimeEstimateForSubProject(int subProjectID) {
         List<Task> tasks = taskRepository.readTasks(subProjectID);
         int totalEstimatedTimeSubProject = 0;
 
@@ -107,7 +107,7 @@ public class SubProjectRepository {
                 subProject.setProjectID(rs.getInt("projectID"));
                 subProject.setStartDate(rs.getDate("startDate"));
                 subProject.setEndDate(rs.getDate("endDate"));
-                int totalEstimatedTimeSubProject = calculateTotalTimeEstimate(subProject.getSubProjectID());
+                int totalEstimatedTimeSubProject = calculateTotalTimeEstimateForSubProject(subProject.getSubProjectID());
                 subProject.setTotalEstimatedTimeSubProject(totalEstimatedTimeSubProject);
                 subProjects.add(subProject);
             }

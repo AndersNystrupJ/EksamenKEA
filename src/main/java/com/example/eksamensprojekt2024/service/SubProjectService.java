@@ -36,6 +36,5 @@ public class SubProjectService {
     public void deleteSubProject(int subProjectID){
         subProjectRepository.deleteSubProject(subProjectID);
     }
-
 }
 
